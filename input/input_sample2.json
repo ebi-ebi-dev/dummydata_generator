@@ -1,0 +1,27 @@
+[
+    {
+        "column_name" : "c1",
+        "generate_type" : "product",
+        "generate_data" : ["a", "b"]
+    },
+    {
+        "column_name" : "c2",
+        "generate_type" : "product",
+        "generate_data" : ["1", "2","3"]
+    },
+    {
+        "column_name" : "c3",
+        "generate_type" : "product",
+        "generate_data" : ["A", "B", "C", "D"]
+    },
+    {
+        "column_name" : "c4",
+        "generate_type" : "random",
+        "generate_data" : ["A", "B", "C", "D"]
+    },
+    {
+        "column_name" : "c5",
+        "generate_type" : "random",
+        "generate_data" : [2, 4, 3, 6666]
+    }
+]
