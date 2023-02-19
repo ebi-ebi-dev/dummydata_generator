@@ -1,0 +1,38 @@
+[
+    {
+        "column_name" : "c1",
+        "generate_type" : "product",
+        "generate_data" : ["a", "b"],
+        "group" : ""
+    },
+    {
+        "column_name" : "c2",
+        "generate_type" : "product",
+        "generate_data" : ["1", "2","3"],
+        "group" : ""
+    },
+    {
+        "column_name" : "c3",
+        "generate_type" : "product",
+        "generate_data" : ["A", "B", "C", "D"],
+        "group" : ""
+    },
+    {
+        "column_name" : "c3-2",
+        "generate_type" : "product",
+        "generate_data" : ["A", "B", "C", "D"],
+        "group" : "1"
+    },
+    {
+        "column_name" : "c4",
+        "generate_type" : "random",
+        "generate_data" : ["alpha", "beta", "gamma", "delta"],
+        "group" : ""
+    },
+    {
+        "column_name" : "c5",
+        "generate_type" : "random",
+        "generate_data" : [2, 4, 3, 66, 555],
+        "group" : ""
+    }
+]
