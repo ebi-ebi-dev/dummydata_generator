@@ -1,13 +1,7 @@
 import pandas as pd
 import json
-import argparse
 import itertools
 import random
-
-parser = argparse.ArgumentParser(description='このプログラムの説明（なくてもよい）')
-parser.add_argument('-json_file', "-j", help='この引数の説明（なくてもよい）')
-parser.add_argument('-output_path', "-o", help='この引数の説明（なくてもよい）')
-args = parser.parse_args()    # 4. 引数を解析
 
 class DummyDataGenerator:
 
@@ -45,6 +39,12 @@ class DummyDataGenerator:
     
     def get_data(self):
         return self.df
+
+import argparse
+parser = argparse.ArgumentParser(description='このプログラムの説明（なくてもよい）')
+parser.add_argument('-json_file', "-j", help='この引数の説明（なくてもよい）')
+parser.add_argument('-output_path', "-o", help='この引数の説明（なくてもよい）')
+args = parser.parse_args()    # 4. 引数を解析
 
 def main():
     json_file = args.json_file
