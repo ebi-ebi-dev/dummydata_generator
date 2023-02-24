@@ -17,7 +17,7 @@
     {
         "column_name" : "c4",
         "generate_type" : "random",
-        "generate_data" : ["A", "B", "C", "D"]
+        "generate_data" : ["あ", "い", "う", "え"]
     },
     {
         "column_name" : "c5",
