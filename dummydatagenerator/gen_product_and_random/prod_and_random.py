@@ -48,7 +48,7 @@ class DummyDataGenerator:
         df_list = []
         for v in self.df_set.values(): 
             df_list.append(v)
-        print(recursive_merge(df_list))
+        self.df = recursive_merge(df_list)
         
 
     def make_random_data(self):

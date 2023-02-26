@@ -7,7 +7,7 @@ def test_create():
     create_data.create_link_date("enddate", "date", 1, 30)
     create_data.create_datetime("datetime", "product", "2023/02/25 00:00:00", "2023/02/25 10:00:00", 60 * 60)
     create_data.create_link_datetime("enddatetime", "datetime", 1, 59)
-    create_data.create_list("code", "product", [
+    create_data.create_list("code", "random", [
         "a",
         "b",
         "c"
@@ -18,9 +18,9 @@ def test_create():
       "C"
     ])
     create_data.create_list("code2", "product", [
-        "1",
-        "2",
-        "3"
+        "11",
+        "22",
+        "33"
     ])
     create_data.create_link_list("value2", "code2", [
         "one",
@@ -43,7 +43,7 @@ def test_prod_and_random():
     dummydata_generator.make_product_data()
     dummydata_generator.make_random_data()
     # dummydata_generator.output_csv(output_path)
-    # print(dummydata_generator.df)
+    print(dummydata_generator.df)
 
 
 if __name__ == "__main__" :
