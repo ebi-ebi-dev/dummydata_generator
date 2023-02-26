@@ -75,16 +75,23 @@ class CreateData:
             }
         )
     
-    # def create_link_amount(self, cname, linked_cname, min, max):
-    #     datalist = [x for x in range(start, end, step)]
-    #     self.data.append(
-    #         {
-    #             "column_name" : cname,
-    #             "generate_type" : generate_type,
-    #             "linked_cname" : linked_cname,
-    #             "generate_data" : datalist
-    #         }
-    #     )
+    def create_list(self, cname, generate_type, list):
+        self.data.append(
+            {
+                "column_name" : cname,
+                "generate_type" : generate_type,
+                "generate_data" : list
+            }
+        )
+    
+    def create_link_list(self, cname, linked_cname, list):
+        self.data.append(
+            {
+                "column_name" : cname,
+                "linked_cname" : linked_cname,
+                "generate_data" : list
+            }
+        )
     
     def output_json(self, output_file):
         with open(output_file, 'w') as f:

@@ -15,23 +15,45 @@ class DummyDataGenerator:
         for c in self.data:
             self.column_name_list.append(c["column_name"])
         
-        self.generate_data = []
-        self.product_column_nane_list = []
+        self.df_set = {}
 
         for c in self.data:
-            if c["generate_type"] == "product":
-                self.generate_data.append(c["generate_data"])
-                self.product_column_nane_list.append(c["column_name"])
+            # 以下の場合、左辺が不成立の場合、右辺は評価されないので、キーが入っているかの評価は必ず必要。
+            # if comp1 and comp2
+            if "generate_type" in c and c["column_name"] not in self.df_set: 
+                self.df_set[c["column_name"]] = pd.DataFrame()
+            elif "linked_cname" in c and c["linked_cname"] not in self.df_set: # linkのカラムがlinkedされるカラムよりも先にjsonに記述されている場合
+                self.df_set[c["linked_cname"]] = pd.DataFrame()
+            if "generate_type" in c and c["generate_type"] == "product":
+                self.df_set[c["column_name"]][c["column_name"]] = c["generate_data"]
+            if "linked_cname" in c:
+                self.df_set[c["linked_cname"]][c["column_name"]] = c["generate_data"]
 
     def json_check(data):
+        # 同じカラム名はあってはだめ。
+        # 
         pass
 
     def make_product_data(self):
-        self.df = pd.DataFrame(itertools.product(*self.generate_data), columns=self.product_column_nane_list)
+
+        def recursive_merge(df_list):
+            print(len(df_list))
+            if len(df_list) <=2:
+                print(df_list[0]) 
+                print(df_list[1]) 
+                return pd.merge(df_list[0], df_list[1], how = "cross")
+            else:
+                return pd.merge(recursive_merge(df_list[:len(df_list)-1]), df_list[len(df_list)-1], how="cross")
+
+        df_list = []
+        for v in self.df_set.values(): 
+            df_list.append(v)
+        print(recursive_merge(df_list))
+        
 
     def make_random_data(self):
         for c in self.data:
-            if c["generate_type"] == "random": 
+            if "generate_type" in c and c["generate_type"] == "random": 
                 self.df[c["column_name"]] = random.choices(c["generate_data"], k = len(self.df))
 
     def output_csv(self, output_path):
