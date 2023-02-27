@@ -3,14 +3,113 @@ import json
 import itertools
 import random
 
+
+error_templete = """
+Set following json format
+{
+    "column_name": "code",
+    "generate_type": "random",
+    "generate_data": [
+        "a",
+        "b",
+        "c"
+    ]
+},
+{
+    "column_name": "value",
+    "linked_cname": "code",
+    "generate_data": [
+        "A",
+        "B",
+        "C"
+    ]
+}
+"""
+
 class DummyDataGenerator:
 
     def __init__(self, json_path): 
         self.input_file_name = json_path.split("/")[-1].split(".")[0]
 
-        with open(json_path, "r") as f:
+        with open(json_path, "r", encoding="utf-8_sig") as f:
             self.data = json.load(f)
+    
+    def json_check(self):
+        # 特定のカラムがないとだめ
+        # 必ずキーの数は3つで、以下2パターンのいずれか
+        # ・["column_name": str, "generate_type": "product" or "random", "generate_data": list]
+        # ・["column_name": str, "linked_cname": str, "generate_data": list]
         
+        for c, idx in zip(self.data, range(len(self.data))):
+            error_form = ""
+            for key, value in c.items(): 
+                error_form = error_form + f"{key} : {value}\n"
+            if len(c.keys()) == 3:
+                if ("column_name" in c and "generate_type" in c and "generate_data" in c) or ("column_name" in c and "linked_cname" in c and "generate_data" in c):
+                    pass
+                else:
+                    raise Exception(
+                        "No. {idx} is error format: \n".format(idx = idx + 1)
+                        + error_form
+                        + error_templete
+                    )
+            else:
+                raise Exception(
+                    "No. {idx} is error format: \n".format(idx = idx + 1)
+                    + error_form
+                    + error_templete
+                )
+
+        # 同じカラム名はあってはだめ。
+        column_name_list = []
+        for c, idx in zip(self.data, range(len(self.data))):
+            if c["column_name"] in column_name_list:
+                error_msg = "No. {idx} '{cname}' is already specified at No. {idx_ex} data. ".format(idx = idx + 1, cname = c["column_name"], idx_ex = column_name_list.index(c["column_name"]) + 1)
+                print(error_msg)
+                raise Exception(error_msg)
+            else:
+                column_name_list.append(c["column_name"])
+        
+        # generate_typeはproductかrandomでないとだめ
+        for c, idx in zip(self.data, range(len(self.data))):
+            if("generate_type" in c):
+                if "product" == c["generate_type"] or "random" == c["generate_type"]:
+                    pass
+                else:
+                    raise Exception(
+                        "No. {idx} generate_type '{gtype}' must be 'product' or 'random'. ".format(idx = idx + 1, gtype = c["generate_type"])
+                    )
+        
+        # linked_cnameは存在しているカラムを指定しないとだめ
+        origin_column_name_list = []
+        for c in self.data:
+            if("generate_type" in c):
+                origin_column_name_list.append(c["column_name"])
+        for c, idx in zip(self.data, range(len(self.data))):
+            if("linked_cname" in c):
+                if c["linked_cname"] in origin_column_name_list:
+                    pass
+                else:
+                    raise Exception(
+                        "No. {idx} linked_cname '{cname}' is not exist. ".format(idx = idx + 1, cname = c["linked_cname"])
+                    )
+        # originカラムとlinkカラムのデータサイズは同じにしないとだめ
+        origin_column_datasize = {}
+        for c in self.data:
+            if("generate_type" in c):
+                origin_column_datasize[c["column_name"]] = len(c["generate_data"])
+        for c, idx in zip(self.data, range(len(self.data))):
+            if("linked_cname" in c):
+                if origin_column_datasize[c["linked_cname"]] == len(c["generate_data"]):
+                    pass
+                else:
+                    raise Exception(
+                        "No. {idx} datasize '{cname}: {size}' is not match linked datasize '{cname_l}: {size_l}'. ".format(
+                            idx = idx + 1, cname = c["column_name"], size = len(c["generate_data"]), cname_l = c["linked_cname"], size_l = origin_column_datasize[c["linked_cname"]]
+                        )
+                    )
+
+    def prepare_prod_and_random(self):    
         self.column_name_list = []
         prod_column_list = []
         rand_column_list = []
@@ -50,11 +149,6 @@ class DummyDataGenerator:
                     self.prod_df_set[c["linked_cname"]][c["column_name"]] = c["generate_data"]
                 elif c["linked_cname"] in rand_column_list:
                     self.rand_df_set[c["linked_cname"]][c["column_name"]] = c["generate_data"]
-
-    def json_check(data):
-        # 同じカラム名はあってはだめ。
-        # 
-        pass
 
     def make_product_data(self):
 
