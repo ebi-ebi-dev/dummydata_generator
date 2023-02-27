@@ -40,6 +40,8 @@ def test_prod_and_random():
     # print(json_file, output_path)
     
     dummydata_generator = prod_and_random.DummyDataGenerator(json_file)
+    dummydata_generator.json_check()
+    dummydata_generator.prepare_prod_and_random()
     dummydata_generator.make_product_data()
     dummydata_generator.make_random_data()
     # dummydata_generator.output_csv(output_path)
@@ -47,5 +49,5 @@ def test_prod_and_random():
 
 
 if __name__ == "__main__" :
-    test_create()
+    # test_create()
     test_prod_and_random()
