@@ -1,35 +1,10 @@
 {% extends "base.html" %} {% block content %}
 
-<form method="post" id="myform" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" name = "submit">アップロードする</button> 
-</form>
-
-{% if text %}
-    {{ text | linebreaks}}
-
-    <form action = "" method="post" id="gen_form" >
-        {% csrf_token %}
-        <div class = "field">
-            <div class = "control">
-                <button class="button is-danger" name = "generate">Generate!</button> 
-            </div>
-        </div>
-    </form>
-{% endif %}
-
-{% if dataframe %}
-    {{ dataframe | safe }}
-    <form action = "" method="post" id="download_csv" >
-        {% csrf_token %}
-        <div class = "field">
-            <div class = "control">
-                <button class="button is-danger" name = "download_csv"> Download CSV</button> 
-            </div>
-        </div>
-    </form>
-{% endif %}
-
+<body>
+    <button class="button is-danger" onclick="location.href='http://localhost:8000/create/'"> Create data </button> 
+</body>
+<body>
+    <button class="button is-danger" onclick="location.href='http://localhost:8000/product_and_random/'"> Product </button> 
+</body>
 
 {% endblock %}

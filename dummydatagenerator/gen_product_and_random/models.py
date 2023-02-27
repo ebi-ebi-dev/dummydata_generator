@@ -1,6 +1,5 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
-from django.shortcuts import render, get_object_or_404
 
 # Create your models here.
 

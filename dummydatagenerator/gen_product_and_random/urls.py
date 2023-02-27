@@ -14,13 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+
+from .views import product_and_random, frontpage
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("", include("gen_product_and_random.urls")),
-    path("product_and_random", include("gen_product_and_random.urls")),
-    path("create/", include("create.urls")),
+    path("", frontpage.as_view()),
+    path("product_and_random/", product_and_random)
 ]
 
 from django.conf import settings

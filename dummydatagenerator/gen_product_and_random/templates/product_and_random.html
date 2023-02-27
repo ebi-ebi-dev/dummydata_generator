@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block content %}
+
+<form method="post" id="json_upload_form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" name = "submit">アップロードする</button> 
+</form>
+
+
+{% if text %}
+    {{ text | linebreaks}}
+
+    <form action = "" method="post" id="gen_form" >
+        {% csrf_token %}
+        <div class = "field">
+            <div class = "control">
+                <button class="button is-danger" name = "generate">Generate!</button> 
+            </div>
+        </div>
+    </form>
+{% endif %}
+<h1 id="display"></h1>
+
+{% if dataframe %}
+    {{ dataframe | safe }}
+    <form action = "" method="post" id="download_csv" >
+        {% csrf_token %}
+        <div class = "field">
+            <div class = "control">
+                <button class="button is-danger" name = "download_csv"> Download CSV</button> 
+            </div>
+        </div>
+    </form>
+{% endif %}
+
+
+{% endblock %}
