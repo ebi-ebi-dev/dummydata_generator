@@ -75,7 +75,3 @@ def delete(json_id=0):
     
     # レコードの削除
     upload_json.delete()
-
-def create(request):
-    posts = Post.objects.all()
-    return render(request, 'create.html')
