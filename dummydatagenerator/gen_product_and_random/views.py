@@ -4,10 +4,15 @@ from django.shortcuts import redirect
 from .forms import DocumentForm
 from django.http import HttpResponse
 from .prod_and_random import DummyDataGenerator
+from django.views.generic import TemplateView
 import json
 
+
 # Create your views here.
-def frontpage(request):
+class frontpage(TemplateView):
+    template_name = 'frontpage.html'
+
+def product_and_random(request):
     posts = Post.objects.all()
     if request.method == 'POST':
         if "submit" in request.POST:
@@ -19,7 +24,7 @@ def frontpage(request):
                 tmp2 = posts.exclude(id = posts.latest('id').id)
                 for tmp in tmp2:
                     delete(tmp.id)
-                return render(request, 'frontpage.html', {
+                return render(request, 'product_and_random.html', {
                     "text": text,
                     'form': form
                 })
@@ -28,12 +33,14 @@ def frontpage(request):
             with posts[len(posts) - 1].document.open("r") as f:
                 data = json.load(f)
             dummydata_generator = DummyDataGenerator(str(posts[len(posts) - 1].document.file))
+            dummydata_generator.json_check()
+            dummydata_generator.prepare_prod_and_random()
             dummydata_generator.make_product_data()
             dummydata_generator.make_random_data()
             # dummydata_generator.output_csv(output_path)
             with posts[len(posts) - 1].document.open("r") as f:
                 text = f.read()
-            return render(request, 'frontpage.html', {
+            return render(request, 'product_and_random.html', {
                     "text" : text,
                     "dataframe": dummydata_generator.df.to_html(),
                     'form': DocumentForm()
@@ -43,6 +50,8 @@ def frontpage(request):
             with posts[len(posts) - 1].document.open("r") as f:
                 data = json.load(f)
             dummydata_generator = DummyDataGenerator(str(posts[len(posts) - 1].document.file))
+            dummydata_generator.json_check()
+            dummydata_generator.prepare_prod_and_random()
             dummydata_generator.make_product_data()
             dummydata_generator.make_random_data()
             response = HttpResponse(content_type='text/csv')
@@ -51,7 +60,7 @@ def frontpage(request):
             return response
     else:
         form = DocumentForm()
-    return render(request, 'frontpage.html', {
+    return render(request, 'product_and_random.html', {
         "datas": posts,
         'form': form
     })
@@ -66,3 +75,7 @@ def delete(json_id=0):
     
     # レコードの削除
     upload_json.delete()
+
+def create(request):
+    posts = Post.objects.all()
+    return render(request, 'create.html')
