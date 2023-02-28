@@ -4,14 +4,10 @@ from django.shortcuts import redirect
 from .forms import DocumentForm
 from django.http import HttpResponse
 from .prod_and_random import DummyDataGenerator
-from django.views.generic import TemplateView
 import json
 
 
 # Create your views here.
-class frontpage(TemplateView):
-    template_name = 'frontpage.html'
-
 def product_and_random(request):
     posts = Post.objects.all()
     if request.method == 'POST':
