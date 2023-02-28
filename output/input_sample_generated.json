@@ -16,7 +16,7 @@
     ]
   },
   {
-    "column_name": "あああ",
+    "column_name": "enddate",
     "linked_cname": "date",
     "generate_data": [
       "2023/02/22",
