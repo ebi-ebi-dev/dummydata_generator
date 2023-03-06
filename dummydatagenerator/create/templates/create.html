@@ -8,89 +8,15 @@
       <button type='button' class="delete_button is-danger close" id = "delete_button" >x</button>
     </div>
     <div align="right">
-      <button type='button' class="clear_button is-danger" id = "clear_button" onclick="clearForm(this)">clear</button>
+      <button type='button' class="clear_button is-danger" id = "clear_button">clear</button>
     </div>
-    <!-- <form id="form_box"> -->
-      <div class="column_name" id="column_name_form">
-        <label class="label">項目名</label>
-        <div class="control">
-          <input type="text" class="column_name_text" placeholder="例：氏名" id="column_name_text">
-        </div>
-      </div>
-  
-      <div class="column_type" id="column_name_from">
-        <label class="label">項目タイプ</label>
-        <input type="radio" name="column_type" id="normal_column_radio" onclick="control_visible_Ctype(this)" checked> 項目作成
-        <input type="radio" name="column_type" id="link_column_radio" onclick="control_visible_Ctype(this)"> リンク項目の作成
-        <div>
-          <!-- 項目作成のフォーム -->
-          <select class="generate_type" id = "generate_type">
-            <option id="product" > 組み合わせ </option>
-            <option id="random" > ランダム </option>
-          </select>
-          <!-- リンク項目作成のフォーム -->
-          <input type="text" class="link_column_form" id="link_column_form" placeholder="リンクする項目名">
-        </div>
-      </div>
-      
-      <div class="data_type">
-        <label class="label">データタイプ</label>
-        <select class="data_type_menu" id="data_type" onchange="control_visible_Dtype(this)">
-          <!-- <option selected> データタイプ </option> -->
-          <option id="data_type_text" value="data_type_text" > 文字 </option>
-          <option id="data_type_number" value="data_type_number"> 数値 </option>
-          <option id="data_type_date" value="data_type_date" selected> 日付 </option>
-          <option id="data_type_datetime" value="data_type_datetime"> 日時 </option>
-        </select>
-        <div class="generate_data_config mt-3">
-          <ul class="generate_text" id="generate_text">
-            <div>
-              文字データ（改行区切りで記入）：
-            </div>
-            <textarea rows="10" cols="60" id="generate_text_area"></textarea>
-          </ul>
+    {% for post in posts %}
+    {{ post.column_name }}
+    {% endfor %}
 
-          <ul class="generate_link_text" id="generate_link_text">
-            <div>
-              文字データ（改行区切りで記入）：
-            </div>
-            <textarea rows="10" cols="60"id="generate_link_text_area"></textarea>
-          </ul>
-          <ul class="generate_number" id="generate_number">
-            <li>最小値：<input type="number" class="number_min" id="number_min"></li>
-            <li>最大値：<input type="number" class="number_max" id="number_max"></li>
-            <li>ステップ：<input type="number" class="number_step" id="number_step" placeholder="1"></li>
-          </ul>
-          <ul class="generate_link_number" id="generate_link_number">
-            <div>
-              数値データはリンクできません。
-            </div>
-          </ul>
-          <ul class="generate_date" id="generate_date">
-            <li>最小日付：<input type="date" class="date_min" id="date_min"></li>
-            <li>最大日付：<input type="date" class="date_max" id="date_max"></li>
-            <li>ステップ（日）：<input type="number" class="date_step" id="date_step" placeholder="1"></li>
-          </ul>
 
-          <ul class="generate_link_date" id="generate_link_date">
-            <li>最小増分：<input type="number" class="date_link_min" id="date_link_min"></li>
-            <li>最大増分：<input type="number" class="date_link_max" id="date_link_max"></li>
-          </ul>
-          
-          <ul class="generate_datetime" id="generate_datetime">
-            <li>最小日時：<input type="datetime-local" class="datetime_min" id="datetime_min" ></li>
-            <li>最大日時：<input type="datetime-local" class="datetime_max" id="datetime_max" ></li>
-            <li>ステップ（分）：<input type="number" class="datetime_step" id="datetime_step" placeholder="1"></li>
-          </ul>
+    {{ forms.as_p }}
 
-          <ul class="generate_link_datetime" id="generate_link_datetime">
-            <li>最小増分：<input type="number" class="datetime_link_min" id="datetime_link_min" min = "1"></li>
-            <li>最大増分：<input type="number" class="datetime_link_max" id="datetime_link_max" min = "1"></li>
-          </ul>
-
-        </div>
-      </div>
-    <!-- </form> -->
   </div>    
 </template>
 
@@ -106,7 +32,6 @@
     <button form= "mainform" type="submit" name = "submit" class="mt-5 button is-danger" >Set</button>
   </div>
 </div>
-
 
 <script src="{% static 'create/create.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 

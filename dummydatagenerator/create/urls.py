@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path
 
-from .views import create
+from .views import create, check
 
 urlpatterns = [
-    # path("", create),
-    path("", create.as_view())
+    path("", create),
+    path("check/", check), # <- これで、create/checkにできる。
+    # path("", create.as_view())
 ]
 
 # from django.conf import settings
