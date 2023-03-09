@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.urls import path
 
-from .views import create, check
+from .views import MyCreate, check
 
 urlpatterns = [
-    path("", create),
+    # path("", create),
+    path("", MyCreate.as_view(), name='create'),
     path("check/", check), # <- これで、create/checkにできる。
     # path("", create.as_view())
 ]

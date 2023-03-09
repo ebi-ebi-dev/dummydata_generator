@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "frontpage",
     "gen_product_and_random",
-    "create"
+    "create",
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

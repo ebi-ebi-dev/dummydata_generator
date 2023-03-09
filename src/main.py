@@ -1,5 +1,6 @@
 import prod_and_random
 import create
+import io
 
 def test_create():
     create_data = create.CreateData()
@@ -33,13 +34,14 @@ def test_create():
 def test_prod_and_random():
     # json_file = "./input/input_sample_noProduct.json"
     # json_file = "./input/input_sample_noRandom.json"
-    # json_file = "./input/input_sample4.json"
-    json_file = "./output/input_sample_generated.json"
+    json_file = "./input/input_sample4.json"
+    # json_file = "./output/input_sample_generated.json"
     output_path = "./output"
 
     # print(json_file, output_path)
     
-    dummydata_generator = prod_and_random.DummyDataGenerator(json_file)
+    dummydata_generator = prod_and_random.DummyDataGenerator()
+    dummydata_generator.read_from_jsonpath(json_file)
     dummydata_generator.json_check()
     dummydata_generator.prepare_prod_and_random()
     dummydata_generator.make_product_data()

@@ -5,54 +5,72 @@ from .forms import DocumentForm
 from django.http import HttpResponse
 from .prod_and_random import DummyDataGenerator
 import json
+import pandas as pd
+import io
 
+JSON_TEXT = ""
+OUTPUT_DF = pd.DataFrame()
 
 # Create your views here.
 def product_and_random(request):
+    global JSON_TEXT, OUTPUT_DF
     posts = Post.objects.all()
+    # print("rrrr: ", request.FILES['document'].read().decode('utf-8'))
     if request.method == 'POST':
         if "submit" in request.POST:
             form = DocumentForm(request.POST, request.FILES)
             if form.is_valid():
-                form.save()
-                with posts[len(posts) - 1].document.open("r") as f:
-                    text = f.read()
-                tmp2 = posts.exclude(id = posts.latest('id').id)
-                for tmp in tmp2:
-                    delete(tmp.id)
+                # data = pd.read_csv(io.StringIO(request.FILES['document'].read().decode('utf-8')), delimiter=',')
+                # form.save()
+                # with posts[len(posts) - 1].document.open("r") as f:
+                JSON_TEXT = request.FILES['document'].read().decode('utf-8')
+                # print("json: ", json.loads(text))
+                # print("data", data)
+                dummydata_generator = DummyDataGenerator()
+                dummydata_generator.read_from_jsontext(JSON_TEXT)
+                dummydata_generator.json_check()
+                json_dict = json.loads(JSON_TEXT)
                 return render(request, 'product_and_random.html', {
-                    "text": text,
-                    'form': form
+                    "text": json_dict,
+                    'form': form,
+                    "error_msg": dummydata_generator.error_msg_dict
                 })
         elif "generate" in request.POST:
+            if (len(JSON_TEXT) == 0):
+                return render(request, 'product_and_random.html', {
+                    "text": "",
+                    'form': DocumentForm()
+                })
             print("generate!")
-            with posts[len(posts) - 1].document.open("r") as f:
-                data = json.load(f)
-            dummydata_generator = DummyDataGenerator(str(posts[len(posts) - 1].document.file))
+            dummydata_generator = DummyDataGenerator()
+            dummydata_generator.read_from_jsontext(JSON_TEXT)
             dummydata_generator.json_check()
+            json_dict = json.loads(JSON_TEXT)
+            if(dummydata_generator.error_code != 0 ): 
+                print(dummydata_generator.error_msg)
+                json_dict = json.loads(JSON_TEXT)
             dummydata_generator.prepare_prod_and_random()
             dummydata_generator.make_product_data()
             dummydata_generator.make_random_data()
-            # dummydata_generator.output_csv(output_path)
-            with posts[len(posts) - 1].document.open("r") as f:
-                text = f.read()
+            OUTPUT_DF = dummydata_generator.df
+            print(json_dict)
             return render(request, 'product_and_random.html', {
-                    "text" : text,
-                    "dataframe": dummydata_generator.df.to_html(),
+                    "text" : json_dict,
+                    "dataframe": OUTPUT_DF.head(10).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
                     'form': DocumentForm()
             })
 
         elif "download_csv" in request.POST:
-            with posts[len(posts) - 1].document.open("r") as f:
-                data = json.load(f)
-            dummydata_generator = DummyDataGenerator(str(posts[len(posts) - 1].document.file))
-            dummydata_generator.json_check()
-            dummydata_generator.prepare_prod_and_random()
-            dummydata_generator.make_product_data()
-            dummydata_generator.make_random_data()
+            # with posts[len(posts) - 1].document.open("r") as f:
+            #     data = json.load(f)
+            # dummydata_generator = DummyDataGenerator(str(posts[len(posts) - 1].document.file))
+            # dummydata_generator.json_check()
+            # dummydata_generator.prepare_prod_and_random()
+            # dummydata_generator.make_product_data()
+            # dummydata_generator.make_random_data()
             response = HttpResponse(content_type='text/csv')
             response['Content-Disposition'] = 'attachment; filename=filename.csv'
-            dummydata_generator.df.to_csv(path_or_buf=response, sep=',', float_format='%.2f', index=False, decimal=",")
+            OUTPUT_DF.to_csv(path_or_buf=response, sep=',', float_format='%.2f', index=False, decimal=",")
             return response
     else:
         form = DocumentForm()

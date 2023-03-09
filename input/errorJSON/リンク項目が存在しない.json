@@ -1,0 +1,22 @@
+[
+    {
+        "column_name" : "c1",
+        "generate_type" : "product",
+        "generate_data" : ["a", "b"]
+    },
+    {
+        "column_name" : "c2",
+        "generate_type" : "product",
+        "generate_data" : ["1", "2","3"]
+    },
+    {
+        "column_name" : "c3",
+        "generate_type" : "product",
+        "generate_data" : ["A", "B", "C", "D"]
+    },
+    {
+        "column_name" : "c4",
+        "linked_cname" : "c100000",
+        "generate_data" : ["A", "B", "C", "D"]
+    }
+]
