@@ -3,36 +3,44 @@
 {% block content %}
 
 
-<button id = "go_createData" type="button" class="button btn-danger">データを作る</button>
-<button id = "go_prodAndRand" type="button" class="button btn-danger">データを増やす</button>
-<button id = "go_makeTrend" type="button" class="button btn-danger">傾向をつける</button>
+<div class="container">
+    <div class="row">
+        <div class="col-7" >
+            <img src="media/image/sample1.png" class="img-thumbnail" border="5" alt="sample1">
+        </div>
+        <div class="col" >
+            <button id = "go_createData" type="button" class="button btn-danger btn-lg">データを作る</button>
+            <h4 class="mt-4">数値や日付、日時のデータを生成します。</h4>
+            <div class="mt-2">項目名等の数値を入力→JSONファイルを出力します。</div>
+        </div>
+    </div>
+</div>
 
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-7" >
+            <img src="media/image/sample2.png" class="img-thumbnail" alt="sample2">
+        </div>
+        <div class="col" >
+            <button id = "go_prodAndRand" type="button" class="button btn-danger btn-lg">データを増やす</button>
+            <h4 class="mt-4">生成したデータを組み合わせたり、ランダムに結合して1つのテーブルを作成します。</h4>
+            <div class="mt-2">JSONファイルをアップロード→CSVを出力します。</div>
+        </div>
     </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="/media/image/sample1.png" class="d-block w-100" alt="firstslide">
-      </div>
-      <div class="carousel-item">
-        <img src="/media/image/sample2.png" class="d-block w-100" alt="secondslide">
-      </div>
-      <div class="carousel-item">
-        <img src="/media/image/sample3.png" class="d-block w-100" alt="thiedslide">
-      </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-7" >
+            <img src="media/image/sample3.png" class="img-thumbnail" alt="sample3">
+        </div>
+        <div class="col" >
+            <button id = "go_makeTrend" type="button" class="button btn-danger btn-lg">傾向をつける</button>
+            <h4 class="mt-4">数値データに対して傾向を付与します。</h4>
+            <div class="mt-2">CSVファイルをアップロード→CSVを出力します。</div>
+        </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
+</div>
 
 <script src="{% static 'frontpage/frontpage.js' %}"></script>
 
