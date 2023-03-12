@@ -1,77 +1,120 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
+from django.http import QueryDict
 
-from .forms import CreateForm
-from django import forms
+from .forms import *
+from django.http.response import JsonResponse
+from .create import CreateData
 
-FORM_NUM = 1      # フォーム数
-FORM_VALUES = {}  # 前回のPSOT値
+import json
 
-class MyCreate(FormView):
-    template_name = 'create.html'
-    success_url = reverse_lazy('create')
-    form_all = forms.formset_factory(
-        form = CreateForm,
-        extra=1,
-        max_num=10,
-    )
-    form_class = form_all
-    print(FORM_NUM)
+def create(request):
+    if request.method == "POST":
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            dic = dict(QueryDict(request.body, encoding='utf-8'))
 
-    def get_form_kwargs(self):
-        print(FORM_NUM)
-        # デフォルトのget_form_kwargsメソッドを呼び出す
-        kwargs = super().get_form_kwargs()
-        # FORM_VALUESが空でない場合（入力中のフォームがある場合）、dataキーにFORM_VALUESを設定
-        if FORM_VALUES:
-            kwargs['data'] = FORM_VALUES
-        return kwargs
+            column_name_form = ColumnNameForm(request.POST)
+            column_type_form = NormalForm()
+            data_type_detail_form = NormalDataTypeForm_Date()
 
-    def post(self, request, *args, **kwargs):
-        global FORM_NUM
-        global FORM_VALUES
-        # 追加ボタンが押された時の挙動
-        if 'add_box' in request.POST:
-            print("pushed add_box button", request.POST)
-            FORM_NUM += 1    # フォーム数をインクリメント
-            FORM_VALUES = request.POST.copy()  # リクエストの内容をコピー
-            FORM_VALUES['form-TOTAL_FORMS'] = FORM_NUM   # フォーム数を上書き
+            if ("column_type" in dic):
+                if (dic["column_type"][0] == "normal"):
+                    if("data_type" in dic):
+                        if (dic["data_type"][0] == "string"):
+                            data_type_detail_form = NormalDataTypeForm_Text()
+                            if("text" not in dic): dic["text"] = data_type_detail_form["text"].initial
+                        if (dic["data_type"][0] == "number"):
+                            data_type_detail_form = NormalDataTypeForm_Number()
+                            if("number_min" not in dic): dic["number_min"] = data_type_detail_form["number_min"].initial
+                            if("number_max" not in dic): dic["number_max"] = data_type_detail_form["number_max"].initial
+                            if("number_step" not in dic): dic["number_step"] = data_type_detail_form["number_step"].initial
+                        if (dic["data_type"][0] == "date"):
+                            data_type_detail_form = NormalDataTypeForm_Date()
+                            if("date_min" not in dic): dic["date_min"] = data_type_detail_form["date_min"].initial
+                            if("date_max" not in dic): dic["date_max"] = data_type_detail_form["date_max"].initial
+                            if("date_step" not in dic): dic["date_step"] = data_type_detail_form["date_step"].initial
+                        if (dic["data_type"][0] == "datetime"):
+                            data_type_detail_form = NormalDataTypeForm_Datetime()
+                            if("datetime_min" not in dic): dic["datetime_min"] = data_type_detail_form["datetime_min"].initial
+                            if("datetime_max" not in dic): dic["datetime_max"] = data_type_detail_form["datetime_max"].initial
+                            if("datetime_step" not in dic): dic["datetime_step"] = data_type_detail_form["datetime_step"].initial
+                if (dic["column_type"][0] == "link"):
+                    column_type_form = LinkForm()
+                    data_type_detail_form = LinkDataTypeForm_Date()
+                    if("data_type" in dic):
+                        if (dic["data_type"][0] == "string"):
+                            data_type_detail_form = LinkDataTypeForm_Text()
+                            if("link_text" not in dic): dic["link_text"] = data_type_detail_form["text"].initial
+                        if (dic["data_type"][0] == "number"):
+                            data_type_detail_form = LinkDataTypeForm_Number()
+                            if("link_number_min" not in dic): dic["link_number_min"] = data_type_detail_form["number_min"].initial
+                            if("link_number_max" not in dic): dic["link_number_max"] = data_type_detail_form["number_max"].initial
+                            if("link_number_step" not in dic): dic["link_number_step"] = data_type_detail_form["number_step"].initial
+                        if (dic["data_type"][0] == "date"):
+                            data_type_detail_form = LinkDataTypeForm_Date()
+                            if("link_date_min" not in dic): dic["link_date_min"] = data_type_detail_form["date_min"].initial
+                            if("link_date_max" not in dic): dic["link_date_max"] = data_type_detail_form["date_max"].initial
+                            if("link_date_step" not in dic): dic["link_date_step"] = data_type_detail_form["date_step"].initial
+                            if("link_date_rand_min" not in dic): dic["link_date_rand_min"] = data_type_detail_form["date_rand_min"].initial
+                            if("link_date_rand_max" not in dic): dic["link_date_rand_max"] = data_type_detail_form["date_rand_max"].initial
+                        if (dic["data_type"][0] == "datetime"):
+                            data_type_detail_form = LinkDataTypeForm_Datetime()
+                            if("link_datetime_min" not in dic): dic["link_datetime_min"] = data_type_detail_form["datetime_min"].initial
+                            if("link_datetime_max" not in dic): dic["link_datetime_max"] = data_type_detail_form["datetime_max"].initial
+                            if("link_datetime_step" not in dic): dic["link_datetime_step"] = data_type_detail_form["datetime_step"].initial
+                            if("link_datetime_rand_min" not in dic): dic["link_datetime_rand_min"] = data_type_detail_form["datetime_rand_min"].initial
+                            if("link_datetime_rand_max" not in dic): dic["link_datetime_rand_max"] = data_type_detail_form["datetime_rand_max"].initial
+            
+            # JSからのデータはリストで渡されるため、扱いやすいよう変換: ["aaaaa"] -> "aaaaa"
+            for k in dic.keys():
+                if(dic[k].__class__ is list):
+                    dic[k] = dic[k][0]
+            create_data = CreateData()
+
+            # JSONの生成
+            if( dic.keys() >= {"column_name", "column_type", "data_type"}):
+                if (dic["column_type"] == "normal"):
+                    if("generate_type" in dic): # product か random の判定は不要
+                        if (dic["data_type"] == "string"): # textがあるかの判定も必要？
+                            create_data.create_list(dic["column_name"], dic["generate_type"], dic["text"].split("\n"))
+                        if (dic["data_type"] == "number"):
+                            create_data.create_amount(dic["column_name"], dic["generate_type"], float(dic["number_min"]), float(dic["number_max"]), float(dic["number_step"]))
+                        if (dic["data_type"] == "date"):
+                            create_data.create_date(dic["column_name"], dic["generate_type"], dic["date_min"], dic["date_max"], int(dic["date_step"]))
+                        if (dic["data_type"] == "datetime"):
+                            create_data.create_datetime(dic["column_name"], dic["generate_type"], dic["datetime_min"], dic["datetime_max"], int(dic["datetime_step"]))
+                        print("output: ", create_data.data)
+                if (dic["column_type"] == "link"):
+                    if("link_column_name" in dic): # product か random の判定は不要
+                        if (dic["data_type"] == "string"): # textがあるかの判定も必要？
+                            create_data.create_link_list(dic["column_name"], dic["link_column_name"], dic["link_text"].split("\n"))
+                        if (dic["data_type"] == "number"):
+                            create_data.create_link_amount(dic["column_name"], dic["link_column_name"], float(dic["link_number_min"]), float(dic["link_number_max"]), float(dic["link_number_step"]))
+                        if (dic["data_type"] == "date"):
+                            create_data.create_link_date(dic["column_name"], dic["link_column_name"], dic["link_date_min"], dic["link_date_max"], int(dic["link_date_step"]), dic["link_date_rand_min"], dic["link_date_rand_max"])
+                        if (dic["data_type"] == "datetime"):
+                            create_data.create_link_datetime(dic["column_name"], dic["link_column_name"], dic["link_datetime_min"], dic["link_datetime_max"], int(dic["link_datetime_step"]), dic["link_datetime_rand_min"], dic["link_datetime_rand_max"])
+                        print("output: ", create_data.data)
+            output_json = json.dumps(create_data.data, ensure_ascii=False)
+            print(dic)
+            d = {
+                'generate_type_form': str(column_type_form),
+                'data_detail': str(data_type_detail_form),
+                'gen_button': '<button type="button" class="button is-danger" onclick=send_data_detail()>generate</button>',
+                'output_json' : output_json
+            }
+            return JsonResponse(d)
         
-        return super().post(request, args, kwargs)
-
-# def create(request):
-#     posts = CreateModel.objects.all()
-#     forms_all = CreateForm()
-#     forms_normal = CreateDataConfigForm()
-#     forms_link = CreateLinkDataConfigForm()
-    
-#     # print("posts: ")
-#     # print(posts)
-#     # print("forms: ")
-#     print(forms)
-#     TestFormSet = forms.formset_factory(
-#             form = CreateForm,
-#             extra = 3,     # default-> 1
-#             max_num = 10    # initial含めformは最大4となる
-#     )
-
-    
-#     if request.method == 'POST':
-#         if(forms_all.is_valid()):
-#             data = repr(forms_all.cleaned_data)
-#             return HttpResponse(data) 
-#             return redirect('http://localhost:8000/create/check/')
-
-#     else:
-#         formset = TestFormSet() # initialを渡すことができます。
-#         content = {
-#             "posts" : posts,
-#             "forms" : forms_all,
-#             "forms_normal" : forms_normal,
-#             "forms_link" : forms_link,
-#         }
-#     return render(request, 'create.html', content)
+        else:
+            return render(request, 'create.html', {
+                "column_name_form" : ColumnNameForm(),
+                "column_type_form" : ColumnTypeForm(),
+            })
+    return render(request, 'create.html', {
+        "column_name_form" : ColumnNameForm(),
+        "column_type_form" : ColumnTypeForm(),
+    })
 
 def check(request):
     return render(request, 'check.html', {})
