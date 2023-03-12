@@ -2,40 +2,32 @@
 {% load static %}
 {% block content %}
 
-<!-- <template id="input_form"> -->
-<!-- <div class="box" id="box"> -->
-<form id="box" id="mainform" action="" method="post">
-  <button class="is-danger" id = "delete_button" >x</button>
-  <!-- <div align="right">
-    <button type='button' class="is-danger" id = "delete_button" >x</button>
-  </div> -->
-  <div align="right">
-    <button type='button' class="clear_button is-danger" id = "clear_button">clear</button>
+<form id="mainform" action="{% url 'create:create' %}" method="POST" data-validate>
+  {% csrf_token %}
+  <div id="column_name_form">
+    {{ column_name_form }}
+  </div>
+  <div class="mt-5" id="column_type_form">
+    {{ column_type_form }}
+  </div>
+  <div class="mt-5" id="generate_type_form">
+  </div>
+  <div class="mt-5" id="data_detail">
+  </div>
+  <div class="mt-5" id="gen_button">
+  </div>
+</form>
+
+<div class="mt-5">
+  <div>
+    Output json
   </div>
 
-  <!-- {% for post in posts %}
-  {{ post.column_type }}
-  {% endfor %} -->
+  <textarea class="mt-2 form-control" id="output_json">
+  </textarea>
 
-  {{ form.as_p}}
-  <!-- {{ form.management_form }} -->
-
-  {% csrf_token %}
-  <button class="button is-primary" name="add_box" id = "add_box" >+</button>
-</form>
-  
-<!-- </div> -->
-  
-<!-- </template> -->
-
-<div align="right" class="mt-5">
-  <button form= "mainform" type="submit" name = "submit" class="mt-5 button is-danger" >Set</button>
 </div>
 
-<!-- <script src="{% static 'create/create.js' %}"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" 
-    crossorigin="anonymous">
-</script>
+<script src="{% static 'create/create.js' %}"></script>
 
 {% endblock %}

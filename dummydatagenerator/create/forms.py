@@ -1,39 +1,51 @@
 from django import forms
 from .models import CreateModel
 
-class CreateForm(forms.ModelForm):
-    class Meta:
-        model = CreateModel
-        fields = ("__all__")
-        # fields = ["column_name", "column_type", "generate_type", "link_column_name", "data_type"]
+class ColumnNameForm(forms.Form):
     
     column_name = forms.CharField(
-        widget = forms.TextInput(attrs={'placeholder':'項目名', }),
-        initial='Text'
+        widget = forms.TextInput(attrs={
+            'placeholder':'項目名', 
+            "onchange" : "set_columnname(this.id)"
+        }),
+        label = "項目名",
     )
+
+class ColumnTypeForm(forms.Form):
+    
     column_type = forms.ChoiceField(
         choices = (
+            ('', '項目タイプを選択'),
             ('normal', '項目作成'),
             ('link', 'リンク項目作成')
         ),
-        label='あああ',
+        label='項目タイプ',
         required=True,
-        widget=forms.widgets.RadioSelect(attrs = {"class": "test_class"}),
-        initial='normal'
+        widget=forms.widgets.Select(attrs = {
+            "id" : "column_type",
+            "onchange" : "set_columntype(this.id)"
+        }),
+        # initial='normal'
     )
+
+
+class NormalForm(forms.Form):
     generate_type = forms.ChoiceField(
         choices = (
+            ('', '生成タイプを選択'),
             ('product', '組み合わせ'),
             ('random', 'ランダム')
         ),
-        label='いいい',
+        label='生成タイプ',
         required=True,
-        widget=forms.widgets.RadioSelect,
-        initial = "product"
+        widget=forms.widgets.Select(attrs={
+            "onchange" : "set_generatetype(this.id)"
+        }),
+        # initial = "product"
     )
-    link_column_name = forms.CharField(max_length = 100)
     data_type = forms.ChoiceField(
         choices = (
+            ("", "データタイプを選択"),
             ('string', '文字'),
             ('number', '数値'),
             ('date', '日付'),
@@ -41,60 +53,241 @@ class CreateForm(forms.ModelForm):
         ),
         label='データタイプ',
         required=True,
-        widget=forms.Select(attrs={'id': 'data_type',}) ,
-        initial='date'
+        widget=forms.Select(attrs={
+            "onchange" : "set_datatype(this.id)",
+        }) ,
     )
 
-    import datetime
+class LinkForm(forms.Form):
+
+    link_column_name = forms.CharField(
+        max_length = 100, 
+        label = "リンク項目名",
+        widget = forms.TextInput(attrs={
+            'placeholder':'リンク項目名', 
+            "onchange" : "set_link_columnname(this.id)"
+        }),
+
+    )
+    data_type = forms.ChoiceField(
+        choices = (
+            ("", "データタイプを選択"),
+            ('string', '文字'),
+            ('number', '数値'),
+            ('date', '日付'),
+            ('datetime', '日時')
+        ),
+        label='データタイプ',
+        required=True,
+        widget=forms.Select(attrs={
+            "onchange" : "set_datatype(this.id)",
+        }),
+    )
+
+class NormalDataTypeForm_Text(forms.Form):
+    
     text = forms.CharField(
-        initial = "aaaa",
-        widget=forms.Textarea()
+        initial = "aaa\nbbb\nccc",
+        required=True,
+        widget = forms.Textarea(attrs={
+            'placeholder': "aaa\nbbb\nccc", 
+            "onchange" : "set_text(this.id)"
+        }),
     )
 
-    number_min = forms.FloatField()
-    number_max = forms.FloatField()
-    number_step = forms.FloatField()
+class NormalDataTypeForm_Number(forms.Form):
+    number_min = forms.FloatField(
+        initial = 1.0,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_number_min(this.id)"
+        })
+    )
+    number_max = forms.FloatField(
+        initial = 10.0,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_number_max(this.id)"
+        })
+    )
+    number_step = forms.FloatField(
+        initial = 1,
+        min_value=0.1,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_number_step(this.id)"
+        })
+    )
 
+class NormalDataTypeForm_Date(forms.Form):
+    import datetime
     date_min = forms.DateField(
         label='最小日付',
-        required=False,        
-        initial = datetime.date.today()
+        required=True,        
+        initial = datetime.date.today().strftime("%Y/%m/%d"),
+        widget=forms.DateInput(attrs={
+            "onchange" : "set_date_min(this.id)"
+        })
     )
     date_max = forms.DateField(
         label='最大日付',
-        required=False,        
-        initial = datetime.date.today() + datetime.timedelta(days=10)
+        required=True,        
+        initial = (datetime.date.today() + datetime.timedelta(days=10)).strftime("%Y/%m/%d"),
+        widget=forms.DateInput(attrs={
+            "onchange" : "set_date_max(this.id)"
+        })
     )
     date_step = forms.IntegerField(
         label='ステップ（日）',
-        required=False,        
-        initial = 1
+        required=True,        
+        initial = 1,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_date_step(this.id)"
+        })
     )
 
+class NormalDataTypeForm_Datetime(forms.Form):
+    import datetime
     datetime_min = forms.DateTimeField(
         label='最小日時',
-        required=False,        
-        initial = datetime.datetime.now()
+        required=True,        
+        initial = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:00"),
+        widget=forms.DateTimeInput(attrs={
+            "onchange" : "set_datetime_min(this.id)"
+        })
     )
     datetime_max = forms.DateTimeField(
         label='最大日時',
-        required=False,        
-        initial = datetime.datetime.now() + datetime.timedelta(days=1)
+        required=True,        
+        initial = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y/%m/%d %H:%M:00"),
+        widget=forms.DateTimeInput(attrs={
+            "onchange" : "set_datetime_max(this.id)"
+        })
     )
     datetime_step = forms.IntegerField(
         label='ステップ（秒）',
-        required=False,        
-        initial = 60
+        required=True,        
+        initial = 60,
+        min_value=1,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_datetime_step(this.id)"
+        })
     )
 
-    # text = forms.Textarea()
+class LinkDataTypeForm_Text(forms.Form):
+    
+    text = forms.CharField(
+        initial = "aaa\nbbb\nccc",
+        required=True,
+        widget = forms.Textarea(attrs={
+            'placeholder': "aaa\nbbb\nccc", 
+            "onchange" : "set_link_text(this.id)"
+        }),
+    )
 
-    # number_min = forms.FloatField()
-    # number_max = forms.FloatField()
-    # number_step = forms.FloatField()
+class LinkDataTypeForm_Number(forms.Form):
+    number_min = forms.FloatField(
+        initial = 1.0,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_link_min(this.id)"
+        })
+    )
+    number_max = forms.FloatField(
+        initial = 10.0,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_link_max(this.id)"
+        })
+    )
+    number_step = forms.FloatField(
+        initial = 1.0,
+        min_value=0.1,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_link_step(this.id)"
+        })
+    )
 
-    # date_min = forms.IntegerField()
-    # date_max = forms.IntegerField()
+class LinkDataTypeForm_Date(forms.Form):
+    import datetime
+    date_min = forms.DateField(
+        label='最小日付',
+        required=True,        
+        initial = datetime.date.today().strftime("%Y/%m/%d"),
+        widget=forms.DateInput(attrs={
+            "onchange" : "set_link_date_min(this.id)"
+        })
+    )
+    date_max = forms.DateField(
+        label='最大日付',
+        required=True,        
+        initial = (datetime.date.today() + datetime.timedelta(days=10)).strftime("%Y/%m/%d"),
+        widget=forms.DateInput(attrs={
+            "onchange" : "set_link_date_max(this.id)"
+        })
+    )
+    date_step = forms.IntegerField(
+        label='ステップ（日）',
+        required=True,        
+        initial = 1,
+        min_value=1,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_link_date_step(this.id)"
+        })
+    )
+    date_rand_min = forms.IntegerField(
+        label='最小加算値（日）',
+        required=True,
+        initial = 1,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_link_date_rand_min(this.id)"
+        })
+    )
+    date_rand_max = forms.IntegerField(
+        label='最大加算値（日）',
+        required=True,        
+        initial = 1,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_link_date_rand_max(this.id)"
+        })
+    )
 
-    # datetime_min = forms.IntegerField()
-    # datetime_max = forms.IntegerField()
+class LinkDataTypeForm_Datetime(forms.Form):
+    import datetime
+    datetime_min = forms.DateTimeField(
+        label='最小日時',
+        required=True,        
+        initial = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:00"),
+        widget=forms.DateTimeInput(attrs={
+            "onchange" : "set_link_datetime_min(this.id)"
+        })
+    )
+    datetime_max = forms.DateTimeField(
+        label='最大日時',
+        required=True,        
+        initial = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y/%m/%d %H:%M:00"),
+        widget=forms.DateTimeInput(attrs={
+            "onchange" : "set_link_datetime_max(this.id)"
+        })
+    )
+    datetime_step = forms.IntegerField(
+        label='ステップ（秒）',
+        required=True,        
+        initial = 60,
+        min_value=1,
+        widget=forms.NumberInput(attrs={
+            "onchange" : "set_link_datetime_step(this.id)"
+        })
+    )
+
+    datetime_rand_min = forms.IntegerField(
+        label='最小加算値（秒）',
+        required=True,        
+        initial = 60*60,
+        widget=forms.DateTimeInput(attrs={
+            "onchange" : "set_link_datetime_rand_min(this.id)"
+        })
+    )
+    datetime_rand_max = forms.IntegerField(
+        label='最大加算値（秒）',
+        required=True,        
+        initial = 60*60,
+        widget=forms.DateTimeInput(attrs={
+            "onchange" : "set_link_datetime_rand_max(this.id)"
+        })
+    )
