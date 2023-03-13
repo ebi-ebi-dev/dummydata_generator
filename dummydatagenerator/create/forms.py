@@ -209,6 +209,7 @@ class LinkDataTypeForm_Date(forms.Form):
         label='最小日付',
         required=True,        
         initial = datetime.date.today().strftime("%Y/%m/%d"),
+        input_formats=['%Y/%m/%d'],
         widget=forms.DateInput(attrs={
             "onchange" : "set_link_date_min(this.id)"
         })
@@ -217,6 +218,7 @@ class LinkDataTypeForm_Date(forms.Form):
         label='最大日付',
         required=True,        
         initial = (datetime.date.today() + datetime.timedelta(days=10)).strftime("%Y/%m/%d"),
+        input_formats=['%Y/%m/%d'],
         widget=forms.DateInput(attrs={
             "onchange" : "set_link_date_max(this.id)"
         })

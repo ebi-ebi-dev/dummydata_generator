@@ -18,6 +18,7 @@ def create(request):
             column_type_form = NormalForm()
             data_type_detail_form = NormalDataTypeForm_Date()
 
+            # 初期値をdicに格納
             if ("column_type" in dic):
                 if (dic["column_type"][0] == "normal"):
                     if("data_type" in dic):
