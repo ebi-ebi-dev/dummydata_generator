@@ -23,11 +23,35 @@
     Output json
   </div>
 
-  <textarea class="mt-2 form-control" id="output_json">
-  </textarea>
+  <div class="mt-2 form-control form-control-lg" id="output_json">
+  </div>
 
 </div>
 
+<div class="mt-5">
+  <div class="form-floating">
+    <textarea class="form-control" placeholder="Leave a comment here" id="json_form" style="height: 300px">
+[
+  {"column_name": "文字", "generate_type": "product", "generate_data": ["aaa", "bbb", "ccc"]},
+  {"column_name": "数値", "generate_type": "random", "generate_data": [100, 250, 300]},
+  {"column_name": "日付", "generate_type": "product", "generate_data": ["2023/03/13", "2023/03/14", "2023/03/15"]},
+  {"column_name": "日時", "linked_cname": "日付", "generate_data": ["2023/03/13 10:00:00", "2023/03/14 10:00:00", "2023/03/15 10:00:00"]}
+]</textarea>
+    <label for="json_form">JSONを作成</label>
+  </div>
+  <div class="col-md-3 mt-3">
+    <button class="btn-lg form-control btn btn-primary" id="json_download">JSON download</button>
+  </div>
+</div>
+
 <script src="{% static 'create/create.js' %}"></script>
+<script src="{% static 'create/json_download.js' %}"></script>
+
+<!-- [
+  {"column_name": "文字", "generate_type": "product", "generate_data": ["aaa", "bbb", "ccc"]},
+  {"column_name": "数値", "generate_type": "random", "generate_data": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0]},
+  {"column_name": "日付", "generate_type": "product", "generate_data": ["2023/03/13", "2023/03/14", "2023/03/15", "2023/03/16", "2023/03/17", "2023/03/18", "2023/03/19", "2023/03/20", "2023/03/21", "2023/03/22"]},
+  {"column_name": "日時", "generate_type": "product", "generate_data": ["2023/03/13 10:00:00", "2023/03/14 10:00:00", "2023/03/15 10:00:00", "2023/03/16 10:00:00", "2023/03/17 10:00:00", "2023/03/18 10:00:00", "2023/03/19 10:00:00", "2023/03/20 10:00:00", "2023/03/21 10:00:00"]}
+] -->
 
 {% endblock %}
