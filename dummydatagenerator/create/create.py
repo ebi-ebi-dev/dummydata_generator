@@ -21,15 +21,11 @@ class CreateData:
             "generate_data" : datalist
         }
     
-    def create_link_date(self, cname:str, linked_cname:str, start:str, end:str, step:int, min:int, max:int):
+    def create_link_date(self, cname:str, linked_cname:str, start:str, end:str, step:int):
         start = datetime.datetime.strptime(start, "%Y/%m/%d").date()
         end = datetime.datetime.strptime(end, "%Y/%m/%d").date()
         days_num = (end - start).days
-
-        origin_datalist = [(start + datetime.timedelta(days=x)).strftime("%Y/%m/%d") for x in range(0, days_num, step)]
-        
-        random_add = lambda tmp, min, max: datetime.datetime.strptime(tmp, "%Y/%m/%d").date() + datetime.timedelta(days=random.randint(min, max))
-        datalist = [ random_add(tmp_date, min, max).strftime("%Y/%m/%d") for tmp_date in origin_datalist]
+        datalist = [(start + datetime.timedelta(days=x)).strftime("%Y/%m/%d") for x in range(0, days_num, step)]
         self.data = {
             "column_name" : cname,
             "linked_cname" : linked_cname,
@@ -40,7 +36,6 @@ class CreateData:
         start = datetime.datetime.strptime(start, "%Y/%m/%d %H:%M:%S")
         end = datetime.datetime.strptime(end, "%Y/%m/%d %H:%M:%S")
         seconds_num = int((end - start).total_seconds())
-        print(end - start, seconds_num)
         datalist = [(start + datetime.timedelta(seconds=x)).strftime("%Y/%m/%d %H:%M:%S") for x in range(0, seconds_num, step)]
         self.data = {
             "column_name" : cname,
@@ -48,31 +43,27 @@ class CreateData:
             "generate_data" : datalist
         }
     
-    def create_link_datetime(self, cname:str, linked_cname:str, start:str, end:str, step:int, min:int, max:int):
+    def create_link_datetime(self, cname:str, linked_cname:str, start:str, end:str, step:int):
         start = datetime.datetime.strptime(start, "%Y/%m/%d %H:%M:%S")
         end = datetime.datetime.strptime(end, "%Y/%m/%d %H:%M:%S")
         seconds_num = int((end - start).total_seconds())
-        origin_datalist = [(start + datetime.timedelta(seconds=x)).strftime("%Y/%m/%d %H:%M:%S") for x in range(0, seconds_num, step)]
-
-        
-        random_add = lambda tmp, min, max: datetime.datetime.strptime(tmp, "%Y/%m/%d %H:%M:%S") + datetime.timedelta(seconds=random.randint(min, max))
-        datalist = [ random_add(tmp_datetime, min, max).strftime("%Y/%m/%d %H:%M:%S") for tmp_datetime in origin_datalist]
+        datalist = [(start + datetime.timedelta(seconds=x)).strftime("%Y/%m/%d %H:%M:%S") for x in range(0, seconds_num, step)]
         self.data = {
             "column_name" : cname,
             "linked_cname" : linked_cname,
             "generate_data" : datalist
         }
     
-    def create_amount(self, cname:str, generate_type:str, min:float, max:float, step:float):
-        datalist = [x for x in np.arange(min, max, step)]
+    def create_amount(self, cname:str, generate_type:str, min:int, max:int, step:int):
+        datalist = [x for x in range(min, max, step)]
         self.data = {
             "column_name" : cname,
             "generate_type" : generate_type,
             "generate_data" : datalist
         }
     
-    def create_link_amount(self, cname:str, generate_type:str, min: float, max: float, step : float):
-        datalist = [x for x in np.arange(min, max, step)]
+    def create_link_amount(self, cname:str, generate_type:str, min: int, max: int, step : int):
+        datalist = [x for x in range(min, max, step)]
         self.data = {
             "column_name" : cname,
             "linked_cname" : generate_type,

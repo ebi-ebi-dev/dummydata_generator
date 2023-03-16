@@ -116,15 +116,6 @@ function set_link_date_step(form_id) {
   input_property.link_date_step = document.getElementById(form_id).value;
   console.log("input_property: ", input_property);
 }
-function set_link_date_rand_min(form_id) {
-  input_property.link_date_rand_min = document.getElementById(form_id).value;
-  console.log("input_property: ", input_property);
-}
-
-function set_link_date_rand_max(form_id) {
-  input_property.link_date_rand_max = document.getElementById(form_id).value;
-  console.log("input_property: ", input_property);
-}
 
 function set_link_datetime_min(form_id) {
   input_property.link_datetime_min = document.getElementById(form_id).value;
@@ -136,14 +127,6 @@ function set_link_datetime_max(form_id) {
 }
 function set_link_datetime_step(form_id) {
   input_property.link_datetime_step = document.getElementById(form_id).value;
-  console.log("input_property: ", input_property);
-}
-function set_link_datetime_rand_min(form_id) {
-  input_property.link_datetime_rand_min = document.getElementById(form_id).value;
-  console.log("input_property: ", input_property);
-}
-function set_link_datetime_rand_max(form_id) {
-  input_property.link_datetime_rand_max = document.getElementById(form_id).value;
   console.log("input_property: ", input_property);
 }
 
@@ -262,14 +245,10 @@ function send_data_detail(form_id) {
       'link_date_min': input_property.link_date_min,
       'link_date_max': input_property.link_date_max,
       'link_date_step': input_property.link_date_step,
-      'link_date_rand_min': input_property.link_date_rand_min,
-      'link_date_rand_max': input_property.link_date_rand_max,
       
       'link_datetime_min': input_property.link_datetime_min,
       'link_datetime_max': input_property.link_datetime_max,
       'link_datetime_step': input_property.link_datetime_step,
-      'link_datetime_rand_min': input_property.link_datetime_rand_min,
-      'link_datetime_rand_max': input_property.link_datetime_rand_max,
 
     },
     traditional: true,

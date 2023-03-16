@@ -64,7 +64,7 @@ def product_and_random(request):
         elif "download_csv" in request.POST:
             response = HttpResponse(content_type='text/csv')
             response['Content-Disposition'] = 'attachment; filename=filename.csv'
-            OUTPUT_DF.to_csv(path_or_buf=response, sep=',', float_format='%.2f', index=False, decimal=",")
+            OUTPUT_DF.to_csv(path_or_buf=response, sep=',', index=False)
             return response
     else:
         form = DocumentForm()

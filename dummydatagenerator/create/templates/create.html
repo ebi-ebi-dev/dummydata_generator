@@ -40,7 +40,7 @@
     <label for="json_form">JSONを作成</label>
   </div>
   <div class="col-md-3 mt-3">
-    <button class="btn-lg form-control btn btn-primary" id="json_download">JSON download</button>
+    <button class="btn-lg form-control btn btn-danger" id="json_download">JSON download</button>
   </div>
 </div>
 
@@ -53,5 +53,12 @@
   {"column_name": "日付", "generate_type": "product", "generate_data": ["2023/03/13", "2023/03/14", "2023/03/15", "2023/03/16", "2023/03/17", "2023/03/18", "2023/03/19", "2023/03/20", "2023/03/21", "2023/03/22"]},
   {"column_name": "日時", "generate_type": "product", "generate_data": ["2023/03/13 10:00:00", "2023/03/14 10:00:00", "2023/03/15 10:00:00", "2023/03/16 10:00:00", "2023/03/17 10:00:00", "2023/03/18 10:00:00", "2023/03/19 10:00:00", "2023/03/20 10:00:00", "2023/03/21 10:00:00"]}
 ] -->
+
+<nav aria-label="Page navigation example">
+  <ul class="mt-5 pagination">
+    <li class="page-item"><a class="page-link link-danger" href="http://localhost:8000/">HOME</a></li>
+    <li class="page-item"><a class="page-link link-danger" href="http://localhost:8000/product_and_random/">データを組み合わせる</a></li>
+  </ul>
+</nav>
 
 {% endblock %}
