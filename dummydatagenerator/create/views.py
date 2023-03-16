@@ -57,21 +57,22 @@ def create(request):
                             if("link_date_min" not in dic): dic["link_date_min"] = data_type_detail_form["date_min"].initial
                             if("link_date_max" not in dic): dic["link_date_max"] = data_type_detail_form["date_max"].initial
                             if("link_date_step" not in dic): dic["link_date_step"] = data_type_detail_form["date_step"].initial
-                            if("link_date_rand_min" not in dic): dic["link_date_rand_min"] = data_type_detail_form["date_rand_min"].initial
-                            if("link_date_rand_max" not in dic): dic["link_date_rand_max"] = data_type_detail_form["date_rand_max"].initial
                         if (dic["data_type"][0] == "datetime"):
                             data_type_detail_form = LinkDataTypeForm_Datetime()
                             if("link_datetime_min" not in dic): dic["link_datetime_min"] = data_type_detail_form["datetime_min"].initial
                             if("link_datetime_max" not in dic): dic["link_datetime_max"] = data_type_detail_form["datetime_max"].initial
                             if("link_datetime_step" not in dic): dic["link_datetime_step"] = data_type_detail_form["datetime_step"].initial
-                            if("link_datetime_rand_min" not in dic): dic["link_datetime_rand_min"] = data_type_detail_form["datetime_rand_min"].initial
-                            if("link_datetime_rand_max" not in dic): dic["link_datetime_rand_max"] = data_type_detail_form["datetime_rand_max"].initial
             
             # JSからのデータはリストで渡されるため、扱いやすいよう変換: ["aaaaa"] -> "aaaaa"
             for k in dic.keys():
                 if(dic[k].__class__ is list):
                     dic[k] = dic[k][0]
             create_data = CreateData()
+            
+            print(dic)
+            print(data_type_detail_form.is_valid())
+            for ele in data_type_detail_form :
+                print(ele)
 
             # JSONの生成
             if( dic.keys() >= {"column_name", "column_type", "data_type"}):
@@ -80,25 +81,26 @@ def create(request):
                         if (dic["data_type"] == "string"): # textがあるかの判定も必要？
                             create_data.create_list(dic["column_name"], dic["generate_type"], dic["text"].split("\n"))
                         if (dic["data_type"] == "number"):
-                            create_data.create_amount(dic["column_name"], dic["generate_type"], float(dic["number_min"]), float(dic["number_max"]), float(dic["number_step"]))
+                            create_data.create_amount(dic["column_name"], dic["generate_type"], int(dic["number_min"]), int(dic["number_max"]), int(dic["number_step"]))
                         if (dic["data_type"] == "date"):
                             create_data.create_date(dic["column_name"], dic["generate_type"], dic["date_min"], dic["date_max"], int(dic["date_step"]))
                         if (dic["data_type"] == "datetime"):
                             create_data.create_datetime(dic["column_name"], dic["generate_type"], dic["datetime_min"], dic["datetime_max"], int(dic["datetime_step"]))
-                        print("output: ", create_data.data)
+                        # print("output: ", create_data.data)
                 if (dic["column_type"] == "link"):
                     if("link_column_name" in dic): # product か random の判定は不要
                         if (dic["data_type"] == "string"): # textがあるかの判定も必要？
                             create_data.create_link_list(dic["column_name"], dic["link_column_name"], dic["link_text"].split("\n"))
                         if (dic["data_type"] == "number"):
-                            create_data.create_link_amount(dic["column_name"], dic["link_column_name"], float(dic["link_number_min"]), float(dic["link_number_max"]), float(dic["link_number_step"]))
+                            print(dic["column_name"], dic["link_column_name"], int(dic["link_number_min"]), int(dic["link_number_max"]), int(dic["link_number_step"]))
+                            create_data.create_link_amount(dic["column_name"], dic["link_column_name"], int(dic["link_number_min"]), int(dic["link_number_max"]), int(dic["link_number_step"]))
                         if (dic["data_type"] == "date"):
-                            create_data.create_link_date(dic["column_name"], dic["link_column_name"], dic["link_date_min"], dic["link_date_max"], int(dic["link_date_step"]), dic["link_date_rand_min"], dic["link_date_rand_max"])
+                            create_data.create_link_date(dic["column_name"], dic["link_column_name"], dic["link_date_min"], dic["link_date_max"], int(dic["link_date_step"]))
                         if (dic["data_type"] == "datetime"):
-                            create_data.create_link_datetime(dic["column_name"], dic["link_column_name"], dic["link_datetime_min"], dic["link_datetime_max"], int(dic["link_datetime_step"]), dic["link_datetime_rand_min"], dic["link_datetime_rand_max"])
-                        print("output: ", create_data.data)
+                            create_data.create_link_datetime(dic["column_name"], dic["link_column_name"], dic["link_datetime_min"], dic["link_datetime_max"], int(dic["link_datetime_step"]))
+                        # print("output: ", create_data.data)
             output_json = json.dumps(create_data.data, ensure_ascii=False)
-            print(dic)
+            # print(dic)
             d = {
                 'generate_type_form': str(column_type_form),
                 'data_detail': str(data_type_detail_form),

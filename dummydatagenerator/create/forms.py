@@ -96,21 +96,21 @@ class NormalDataTypeForm_Text(forms.Form):
     )
 
 class NormalDataTypeForm_Number(forms.Form):
-    number_min = forms.FloatField(
-        initial = 1.0,
+    number_min = forms.IntegerField(
+        initial = 1,
         widget=forms.NumberInput(attrs={
             "onchange" : "set_number_min(this.id)"
         })
     )
-    number_max = forms.FloatField(
-        initial = 10.0,
+    number_max = forms.IntegerField(
+        initial = 10,
         widget=forms.NumberInput(attrs={
             "onchange" : "set_number_max(this.id)"
         })
     )
-    number_step = forms.FloatField(
+    number_step = forms.IntegerField(
         initial = 1,
-        min_value=0.1,
+        min_value=1,
         widget=forms.NumberInput(attrs={
             "onchange" : "set_number_step(this.id)"
         })
@@ -142,6 +142,15 @@ class NormalDataTypeForm_Date(forms.Form):
             "onchange" : "set_date_step(this.id)"
         })
     )
+
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     date_min = cleaned_data.get('date_min')
+    #     date_max = cleaned_data.get('date_max')
+    #     date_step = cleaned_data.get('date_step')
+
+    #     if date_min is None or date_max is None or date_max is None:
+    #         raise forms.ValidationError('フィールドが入力されていません。')
 
 class NormalDataTypeForm_Datetime(forms.Form):
     import datetime
@@ -178,26 +187,26 @@ class LinkDataTypeForm_Text(forms.Form):
         required=True,
         widget = forms.Textarea(attrs={
             'placeholder': "aaa\nbbb\nccc", 
-            "onchange" : "set_link_text(this.id)"
+            "onchange" : "set_link_number_text(this.id)"
         }),
     )
 
 class LinkDataTypeForm_Number(forms.Form):
-    number_min = forms.FloatField(
-        initial = 1.0,
+    number_min = forms.IntegerField(
+        initial = 1,
         widget=forms.NumberInput(attrs={
-            "onchange" : "set_link_min(this.id)"
+            "onchange" : "set_link_number_min(this.id)"
         })
     )
-    number_max = forms.FloatField(
-        initial = 10.0,
+    number_max = forms.IntegerField(
+        initial = 10,
         widget=forms.NumberInput(attrs={
-            "onchange" : "set_link_max(this.id)"
+            "onchange" : "set_link_number_max(this.id)"
         })
     )
-    number_step = forms.FloatField(
-        initial = 1.0,
-        min_value=0.1,
+    number_step = forms.IntegerField(
+        initial = 1,
+        min_value=1,
         widget=forms.NumberInput(attrs={
             "onchange" : "set_link_step(this.id)"
         })
@@ -232,22 +241,6 @@ class LinkDataTypeForm_Date(forms.Form):
             "onchange" : "set_link_date_step(this.id)"
         })
     )
-    date_rand_min = forms.IntegerField(
-        label='最小加算値（日）',
-        required=True,
-        initial = 1,
-        widget=forms.NumberInput(attrs={
-            "onchange" : "set_link_date_rand_min(this.id)"
-        })
-    )
-    date_rand_max = forms.IntegerField(
-        label='最大加算値（日）',
-        required=True,        
-        initial = 1,
-        widget=forms.NumberInput(attrs={
-            "onchange" : "set_link_date_rand_max(this.id)"
-        })
-    )
 
 class LinkDataTypeForm_Datetime(forms.Form):
     import datetime
@@ -274,22 +267,5 @@ class LinkDataTypeForm_Datetime(forms.Form):
         min_value=1,
         widget=forms.NumberInput(attrs={
             "onchange" : "set_link_datetime_step(this.id)"
-        })
-    )
-
-    datetime_rand_min = forms.IntegerField(
-        label='最小加算値（秒）',
-        required=True,        
-        initial = 60*60,
-        widget=forms.DateTimeInput(attrs={
-            "onchange" : "set_link_datetime_rand_min(this.id)"
-        })
-    )
-    datetime_rand_max = forms.IntegerField(
-        label='最大加算値（秒）',
-        required=True,        
-        initial = 60*60,
-        widget=forms.DateTimeInput(attrs={
-            "onchange" : "set_link_datetime_rand_max(this.id)"
         })
     )
