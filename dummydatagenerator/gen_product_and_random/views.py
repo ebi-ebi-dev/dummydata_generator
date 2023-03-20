@@ -9,7 +9,7 @@ import pandas as pd
 import io
 
 JSON_TEXT = ""
-INPUT_JSON_FROM = ""
+INPUT_JSON_FROM = None
 OUTPUT_DF = pd.DataFrame()
 VIEW_TABLE_THRESHOLD = 10
 
