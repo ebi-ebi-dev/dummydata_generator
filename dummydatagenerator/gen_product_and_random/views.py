@@ -1,56 +1,46 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 from django.shortcuts import redirect
-from .forms import DocumentForm
+from .forms import DocumentForm, JSONForm
 from django.http import HttpResponse
 from .prod_and_random import DummyDataGenerator
 import json
 import pandas as pd
 import io
 
-JSON_FILENAME = ""
 JSON_TEXT = ""
+INPUT_JSON_FROM = ""
 OUTPUT_DF = pd.DataFrame()
 VIEW_TABLE_THRESHOLD = 10
 
 # Create your views here.
 def product_and_random(request):
-    global JSON_FILENAME, JSON_TEXT, OUTPUT_DF
+    global JSON_TEXT, INPUT_JSON_FROM, OUTPUT_DF
+    print(request.POST)
     if request.method == 'POST':
-        if "submit" in request.POST:
-            form = DocumentForm(request.POST, request.FILES)
-            if form.is_valid():
-                JSON_FILENAME = request.FILES['document']
-                JSON_TEXT = request.FILES['document'].read().decode('utf-8')
-                dummydata_generator = DummyDataGenerator()
-                try:
-                    dummydata_generator.read_from_jsontext(JSON_TEXT)
-                except:
-                    return render(request, 'product_and_random.html', {
-                    "file": JSON_FILENAME,
-                    "text": "",
-                    'form': form,
-                    "error_msg": {"JSON_error": "JSONの形式になっていない可能性があります。ファイルを確認してください。"}
-                })
-                dummydata_generator.json_check()
-                json_dict = json.loads(JSON_TEXT)
+        if "check" in request.POST: 
+            JSON_TEXT = request.POST["text"]
+            INPUT_JSON_FROM = JSONForm(request.POST)
+            dummydata_generator = DummyDataGenerator()
+            try:
+                dummydata_generator.read_from_jsontext(JSON_TEXT)
+            except:
                 return render(request, 'product_and_random.html', {
-                    "file": JSON_FILENAME,
-                    "text": json_dict,
-                    'form': form,
-                    "error_msg": dummydata_generator.error_msg_dict
+                "JSON_text_area": JSONForm(request.POST),
+                "error_msg": {"JSON_error": "JSONの形式になっていない可能性があります。テキストエリアを確認してください。"}
+            })
+            dummydata_generator.json_check()
+            
+            return render(request, 'product_and_random.html', {
+                "JSON_text_area": JSONForm(request.POST),
+                "error_msg": dummydata_generator.error_msg_dict
                 })
         elif "generate" in request.POST:
-            # if (len(JSON_TEXT) == 0):
-            #     return render(request, 'product_and_random.html', {
-            #         "text": "",
-            #         'form': DocumentForm()
-            #     })
             print("generate!")
             dummydata_generator = DummyDataGenerator()
             dummydata_generator.read_from_jsontext(JSON_TEXT)
             dummydata_generator.json_check()
-            json_dict = json.loads(JSON_TEXT)
+            
             dummydata_generator.prepare_prod_and_random()
             dummydata_generator.make_product_data()
             dummydata_generator.make_random_data()
@@ -58,19 +48,15 @@ def product_and_random(request):
 
             if(len(OUTPUT_DF) < VIEW_TABLE_THRESHOLD ):
                 return render(request, 'product_and_random.html', {
-                    "file":  JSON_FILENAME,
-                    "text" : "wwww",
+                    "JSON_text_area": INPUT_JSON_FROM,
                     "dataframe_head": OUTPUT_DF.head(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
                     "dataframe_tail": "",
-                    'form': DocumentForm()
                 })
             else:
                 return render(request, 'product_and_random.html', {
-                    "file":  JSON_FILENAME,
-                    "text" : "wwww",
+                    "JSON_text_area": INPUT_JSON_FROM,
                     "dataframe_head": OUTPUT_DF.head(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
                     "dataframe_tail": OUTPUT_DF.tail(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
-                    'form': DocumentForm()
                 })
 
         elif "download_csv" in request.POST:
@@ -79,7 +65,7 @@ def product_and_random(request):
             OUTPUT_DF.to_csv(path_or_buf=response, sep=',', index=False)
             return response
     else:
-        form = DocumentForm()
+        pass
     return render(request, 'product_and_random.html', {
-        'form': form
+        "JSON_text_area" : JSONForm(request.POST)
     })
