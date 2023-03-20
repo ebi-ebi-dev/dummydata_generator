@@ -55,6 +55,7 @@ class NormalForm(forms.Form):
         required=True,
         widget=forms.Select(attrs={
             "onchange" : "set_datatype(this.id)",
+            'class': 'mt-2'
         }) ,
     )
 
@@ -81,6 +82,7 @@ class LinkForm(forms.Form):
         required=True,
         widget=forms.Select(attrs={
             "onchange" : "set_datatype(this.id)",
+            'class': 'mt-2'
         }),
     )
 
@@ -105,14 +107,16 @@ class NormalDataTypeForm_Number(forms.Form):
     number_max = forms.IntegerField(
         initial = 10,
         widget=forms.NumberInput(attrs={
-            "onchange" : "set_number_max(this.id)"
+            "onchange" : "set_number_max(this.id)",
+            'class': 'mt-2'
         })
     )
     number_step = forms.IntegerField(
         initial = 1,
         min_value=1,
         widget=forms.NumberInput(attrs={
-            "onchange" : "set_number_step(this.id)"
+            "onchange" : "set_number_step(this.id)",
+            'class': 'mt-2'
         })
     )
 
@@ -131,7 +135,8 @@ class NormalDataTypeForm_Date(forms.Form):
         required=True,        
         initial = (datetime.date.today() + datetime.timedelta(days=10)).strftime("%Y/%m/%d"),
         widget=forms.DateInput(attrs={
-            "onchange" : "set_date_max(this.id)"
+            "onchange" : "set_date_max(this.id)",
+            'class': 'mt-2'
         })
     )
     date_step = forms.IntegerField(
@@ -139,7 +144,8 @@ class NormalDataTypeForm_Date(forms.Form):
         required=True,        
         initial = 1,
         widget=forms.NumberInput(attrs={
-            "onchange" : "set_date_step(this.id)"
+            "onchange" : "set_date_step(this.id)",
+            'class': 'mt-2'
         })
     )
 
@@ -167,7 +173,8 @@ class NormalDataTypeForm_Datetime(forms.Form):
         required=True,        
         initial = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y/%m/%d %H:%M:00"),
         widget=forms.DateTimeInput(attrs={
-            "onchange" : "set_datetime_max(this.id)"
+            "onchange" : "set_datetime_max(this.id)",
+            'class': 'mt-2'
         })
     )
     datetime_step = forms.IntegerField(
@@ -176,7 +183,8 @@ class NormalDataTypeForm_Datetime(forms.Form):
         initial = 60,
         min_value=1,
         widget=forms.NumberInput(attrs={
-            "onchange" : "set_datetime_step(this.id)"
+            "onchange" : "set_datetime_step(this.id)",
+            'class': 'mt-2'
         })
     )
 
@@ -201,14 +209,16 @@ class LinkDataTypeForm_Number(forms.Form):
     number_max = forms.IntegerField(
         initial = 10,
         widget=forms.NumberInput(attrs={
-            "onchange" : "set_link_number_max(this.id)"
+            "onchange" : "set_link_number_max(this.id)",
+            'class': 'mt-2'
         })
     )
     number_step = forms.IntegerField(
         initial = 1,
         min_value=1,
         widget=forms.NumberInput(attrs={
-            "onchange" : "set_link_step(this.id)"
+            "onchange" : "set_link_step(this.id)",
+            'class': 'mt-2'
         })
     )
 
@@ -257,7 +267,8 @@ class LinkDataTypeForm_Datetime(forms.Form):
         required=True,        
         initial = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime("%Y/%m/%d %H:%M:00"),
         widget=forms.DateTimeInput(attrs={
-            "onchange" : "set_link_datetime_max(this.id)"
+            "onchange" : "set_link_datetime_max(this.id)",
+            'class': 'mt-2'
         })
     )
     datetime_step = forms.IntegerField(
@@ -266,6 +277,7 @@ class LinkDataTypeForm_Datetime(forms.Form):
         initial = 60,
         min_value=1,
         widget=forms.NumberInput(attrs={
-            "onchange" : "set_link_datetime_step(this.id)"
+            "onchange" : "set_link_datetime_step(this.id)",
+            'class': 'mt-2'
         })
     )

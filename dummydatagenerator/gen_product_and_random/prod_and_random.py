@@ -206,10 +206,6 @@ class DummyDataGenerator:
                     self.rand_df_set[c["linked_cname"]][c["column_name"]] = c["generate_data"]
         self.prod_num = len(self.prod_df_set)
         self.rand_num = len(self.rand_df_set)
-        print(self.prod_num)
-        print(self.rand_num)
-        print(self.prod_df_set)
-        print(self.rand_df_set)
 
     def make_product_data(self):
 
@@ -224,7 +220,6 @@ class DummyDataGenerator:
             self.df = pd.DataFrame()
         elif(self.prod_num == 1):
             for v in self.prod_df_set.values():
-                print(v)
                 self.df = v
         else:    
             for v in self.prod_df_set.values(): 
@@ -232,7 +227,6 @@ class DummyDataGenerator:
             self.df = recursive_merge(df_list)
 
     def make_random_data(self):
-        print(len(self.df))
         if(self.prod_num == 0):
             for v in self.rand_df_set.values():
                 tmp = random.choices(v.values.tolist(), k = 1)

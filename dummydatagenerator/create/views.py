@@ -68,11 +68,6 @@ def create(request):
                 if(dic[k].__class__ is list):
                     dic[k] = dic[k][0]
             create_data = CreateData()
-            
-            print(dic)
-            print(data_type_detail_form.is_valid())
-            for ele in data_type_detail_form :
-                print(ele)
 
             # JSONの生成
             if( dic.keys() >= {"column_name", "column_type", "data_type"}):
