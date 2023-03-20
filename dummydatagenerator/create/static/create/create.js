@@ -154,7 +154,7 @@ function enable_generateType(form_id) {
                     "Status: " + xhr.status + "\n" + error);
         }
   }).done(response => {
-    // $('#new_form_1').empty();
+    console.log(response);
     $('#generate_type_form').empty();
     $('#data_detail').empty();
     const obj = JSON.parse(response)

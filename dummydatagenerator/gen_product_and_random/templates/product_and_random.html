@@ -2,32 +2,21 @@
 {% load static %}
 <!-- {% load widget_tweaks %} -->
 
-<div class="container">
-    <div class="row">
-        <div class="col" >
-            <form method="post" id="json_upload_form" enctype="multipart/form-data">
-                {% csrf_token %}
-                <label for="id_photo" class="filelabel"></label>
-                <div class="is-danger">{{ form.document | add_class:'form-control' }}</div>
-            </form>
-        </div>
-        <div class="col d-flex align-items-end">
-            <button form="json_upload_form" class="button is-danger" type="submit" name = "submit">アップロードする</button>
-        </div>
+<form class="mt-5" action = "" method="post" id="json_form">
+    {% csrf_token %}
+    {% if JSON_text_area %}
+    {{ JSON_text_area }}
+    {% endif %}
+    <div class="mt-2 col d-flex align-items-end">
+        <button form="json_form" class="button is-danger" type="submit" name = "check">JSON チェック</button>
     </div>
-</div>
-
-{% if file %} {% if not error_msg %}
-    <div class="mt-5 alert alert-secondary" role="alert">
-        アップロードに成功しました： {{ file }}
-    </div>
-{% endif %} {% endif %}
+</form>
 
 {% if error_msg %}
     <div class="mt-2 alert alert-primary" role="alert">
         <div class="row">
             <div class="col ">
-                {{ error_msg.JSON_error | linebreaks }}
+                {{ error_msg.JSON_error | linebreaks}}
                 {{ error_msg.error_msg | linebreaks }}
                 {{ error_msg.error_form | linebreaks }}
                 {{ error_msg.error_rule | linebreaks }}
@@ -38,11 +27,15 @@
             </div>
         </div>
     </div>
+{% else %}
+    <div class="mt-2 alert alert-secondary" role="alert">
+        JSONフォーマットに問題はありませんでした。
+    </div>
 {% endif%}
 
 <div class="tile">
     <div class="tile">
-        {% if text %} {% if not error_msg %}
+        {% if not error_msg %}
         <form action = "" method="post" id="gen_form" >
             {% csrf_token %}
             <div class = "field">
@@ -51,7 +44,7 @@
                 </div>
             </div>
         </form>
-        {% endif %} {% endif %}
+        {% endif %}
     </div>
     <div class="tile">
         {% if dataframe_head %}
