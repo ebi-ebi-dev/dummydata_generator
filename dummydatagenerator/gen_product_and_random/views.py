@@ -11,6 +11,7 @@ import io
 JSON_FILENAME = ""
 JSON_TEXT = ""
 OUTPUT_DF = pd.DataFrame()
+VIEW_TABLE_THRESHOLD = 10
 
 # Create your views here.
 def product_and_random(request):
@@ -54,12 +55,23 @@ def product_and_random(request):
             dummydata_generator.make_product_data()
             dummydata_generator.make_random_data()
             OUTPUT_DF = dummydata_generator.df
-            return render(request, 'product_and_random.html', {
-                "file":  JSON_FILENAME,
-                "text" : "wwww",
-                "dataframe": OUTPUT_DF.head(10).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
-                'form': DocumentForm()
-            })
+
+            if(len(OUTPUT_DF) < VIEW_TABLE_THRESHOLD ):
+                return render(request, 'product_and_random.html', {
+                    "file":  JSON_FILENAME,
+                    "text" : "wwww",
+                    "dataframe_head": OUTPUT_DF.head(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
+                    "dataframe_tail": "",
+                    'form': DocumentForm()
+                })
+            else:
+                return render(request, 'product_and_random.html', {
+                    "file":  JSON_FILENAME,
+                    "text" : "wwww",
+                    "dataframe_head": OUTPUT_DF.head(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
+                    "dataframe_tail": OUTPUT_DF.tail(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
+                    'form': DocumentForm()
+                })
 
         elif "download_csv" in request.POST:
             response = HttpResponse(content_type='text/csv')
