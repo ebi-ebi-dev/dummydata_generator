@@ -6,3 +6,8 @@ document.getElementById("go_prodAndRand").addEventListener("click", () => {
     console.log("clicked");
     window.location.href = 'http://localhost:8000/product_and_random/';
 });
+
+document.getElementById("go_makeTrend").addEventListener("click", () => {
+    console.log("clicked");
+    window.location.href = 'http://localhost:8000/make_trend/';
+});

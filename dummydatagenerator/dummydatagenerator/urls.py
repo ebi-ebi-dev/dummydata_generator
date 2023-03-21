@@ -6,6 +6,7 @@ urlpatterns = [
     path("", include("frontpage.urls")),
     path("product_and_random/", include("gen_product_and_random.urls")),
     path("create/", include("create.urls")),
+    path("make_trend/", include("make_trend.urls")),
 ]
 
 from django.conf import settings
