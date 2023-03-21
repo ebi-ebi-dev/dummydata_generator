@@ -10,7 +10,6 @@ OUTPUT_DF = None
 # Create your views here.
 def make_trend(request):
     global CSV_TEXT, OUTPUT_DF
-    print(request.POST)
     if request.method == 'POST':
         if "upload_csv" in request.POST:
             CSV_TEXT = request.FILES["document"].read().decode('utf-8')
@@ -33,7 +32,7 @@ def make_trend(request):
             make_trend = makeTrend()
             make_trend.read_from_csvtext(CSV_TEXT)
             make_trend.trend_x(request.POST["base_column"], request.POST["target_column"], float(request.POST["slope"]))
-            make_trend.trend_sinx(request.POST["base_column"], request.POST["target_column"], float(request.POST["amplitude"]), float(request.POST["frequency"]))
+            make_trend.trend_sinx(request.POST["base_column"], request.POST["target_column"], float(request.POST["amplitude"]), int(request.POST["frequency"]))
             if (make_trend.error_code == 1): 
                 return render(request, "make_trend.html", {
                     "forms" : DocumentForm(request.POST),

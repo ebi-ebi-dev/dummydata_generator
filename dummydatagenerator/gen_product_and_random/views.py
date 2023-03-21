@@ -33,7 +33,8 @@ def product_and_random(request):
             
             return render(request, 'product_and_random.html', {
                 "JSON_text_area": JSONForm(request.POST),
-                "error_msg": dummydata_generator.error_msg_dict
+                "error_msg": dummydata_generator.error_msg_dict,
+                "checked_flag" : True,
                 })
         elif "generate" in request.POST:
             print("generate!")
@@ -51,12 +52,14 @@ def product_and_random(request):
                     "JSON_text_area": INPUT_JSON_FROM,
                     "dataframe_head": OUTPUT_DF.head(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
                     "dataframe_tail": "",
+                    "checked_flag" : True,
                 })
             else:
                 return render(request, 'product_and_random.html', {
                     "JSON_text_area": INPUT_JSON_FROM,
                     "dataframe_head": OUTPUT_DF.head(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
                     "dataframe_tail": OUTPUT_DF.tail(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
+                    "checked_flag" : True,
                 })
 
         elif "download_csv" in request.POST:

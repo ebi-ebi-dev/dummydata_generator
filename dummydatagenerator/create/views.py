@@ -15,6 +15,10 @@ def create(request):
             dic = dict(QueryDict(request.body, encoding='utf-8'))
 
             column_name_form = ColumnNameForm(request.POST)
+            print(request.POST)
+            if "generate" in request.POST:
+                print("generate")
+            column_name_form
             column_type_form = NormalForm()
             data_type_detail_form = NormalDataTypeForm_Date()
 
@@ -87,7 +91,6 @@ def create(request):
                         if (dic["data_type"] == "string"): # textがあるかの判定も必要？
                             create_data.create_link_list(dic["column_name"], dic["link_column_name"], dic["link_text"].split("\n"))
                         if (dic["data_type"] == "number"):
-                            print(dic["column_name"], dic["link_column_name"], int(dic["link_number_min"]), int(dic["link_number_max"]), int(dic["link_number_step"]))
                             create_data.create_link_amount(dic["column_name"], dic["link_column_name"], int(dic["link_number_min"]), int(dic["link_number_max"]), int(dic["link_number_step"]))
                         if (dic["data_type"] == "date"):
                             create_data.create_link_date(dic["column_name"], dic["link_column_name"], dic["link_date_min"], dic["link_date_max"], int(dic["link_date_step"]))
@@ -99,7 +102,7 @@ def create(request):
             d = {
                 'generate_type_form': str(column_type_form),
                 'data_detail': str(data_type_detail_form),
-                'gen_button': '<button type="button" class="button is-danger" onclick=send_data_detail()>generate</button>',
+                'gen_button': '<button type="button" class="button is-danger" onclick=send_data_detail() name="generate" >generate</button>',
                 'output_json' : output_json
             }
             return JsonResponse(d)
