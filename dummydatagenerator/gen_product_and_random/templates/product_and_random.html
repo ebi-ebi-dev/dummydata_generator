@@ -71,42 +71,10 @@
     </table>
 </div>
 
-<!-- <div class="mt-2 container">
-    <div class="row">
-        <div class="col">
-            {% regroup text by column_name as cname_list %}
-            <ul>
-                {% for cname in cname_list %}
-                    <li> 項目名：{{ cname.grouper }}
-                    <ul>   
-                        {% for p in cname.list %}
-                            {% if p.generate_type %}
-                            <li> 生成タイプ：{{ p.generate_type }}</li>
-                            {% endif %}
-                            {% if p.linked_cname %}
-                            <li> リンク項目：{{ p.linked_cname }}</li>
-                            {% endif %}
-                            <li> 生成データ：{{ p.generate_data }} </li>    
-                        {% endfor %}
-                    </ul>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="col">
-            <table class="table-secondary" style="width:100px; height:100px;">
-                {% if dataframe %}
-                    {{ dataframe | safe }}
-                {% endif %}
-            </table>
-        </div>
-    </div>
-</div> -->
-
 <nav aria-label="Page navigation example">
     <ul class="mt-5 pagination">
       <li class="page-item"><a class="btn-lg page-link link-danger" href="http://localhost:8000/create">データを作る</a></li>
-      <li class="page-item disabled"><a class="btn-lg page-link link-danger" href="http://localhost:8000/product_and_random/">傾向をつける</a></li>
+      <li class="page-item"><a class="btn-lg page-link link-danger" href="http://localhost:8000/make_trend/">傾向をつける</a></li>
     </ul>
 </nav>
 

@@ -1,0 +1,78 @@
+{% extends "base.html" %} 
+{% load static %}
+{% block content %}
+
+<form id="mainform" action="" method="POST" name="aaa" enctype="multipart/form-data" data-validate>
+    {% csrf_token %}
+    {{ forms }}
+    <div class="mt-2 col d-flex align-items-end">
+        <button form="mainform" class="button is-danger" type="submit" name = "upload_csv">CSV アップロード</button>
+    </div>
+</form>
+
+
+{% if error_msg %}
+    <div class="mt-2 alert alert-primary" role="alert">
+        <div class="row">
+            <div class="col ">
+                {{ error_msg | linebreaks}}
+            </div>
+        </div>
+    </div>
+{% else %}
+    {% if input_df %}
+    <div class="mt-2 alert alert-secondary" role="alert">
+        CSVファイルに問題はありませんでした。
+    </div>
+    {% endif %}
+{% endif %}
+
+<!-- <div class="col">
+    <table class="table-secondary">
+        {% if input_df %}
+            {{ input_df | safe }}
+        {% endif %}
+    </table>
+</div> -->
+
+{% if trendforms %}
+<form id="trendform" action="" method="POST" name="aaa" data-validate>
+    {% csrf_token %}
+    {{trendforms.as_p}}
+    <div class="mt-2 col d-flex align-items-end">
+        <button form="trendform" class="button is-danger" type="submit" name = "set_trend" onclick="scrollToTrendForm()">傾向をつける</button>
+    </div>
+</form>
+{% if error_msg_trendform %}
+    <div class="mt-2 alert alert-primary" role="alert">
+        <div class="row">
+            <div class="col ">
+                {{ error_msg_trendform | linebreaks}}
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endif %}
+
+{% if output_df %}
+<img src="data:image/png;base64,{{ chart | safe }}">
+<form action = "" method="post" id="download_csv" >
+    {% csrf_token %}
+    <div class = "field">
+        <div class = "control">
+            <button class="mt-5 button is-danger" name = "download_csv"> Download CSV</button> 
+        </div>
+    </div>
+</form>
+{% endif %}
+
+<nav aria-label="Page navigation example">
+    <ul class="mt-5 pagination">
+      <li class="page-item"><a class="btn-lg page-link link-danger" href="/product_and_random/">データを増やす</a></li>
+      <li class="page-item"><a class="btn-lg page-link link-danger" href="/" target="_blank" rel="noopener noreferrer">HOME</a></li>
+    </ul>
+</nav>
+
+<script src="{% static 'make_trend/make_trend.js' %}"></script>
+
+{% endblock %}

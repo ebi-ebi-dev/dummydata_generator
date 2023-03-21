@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "frontpage",
     "gen_product_and_random",
     "create",
+    "make_trend",
     'widget_tweaks',
 ]
 

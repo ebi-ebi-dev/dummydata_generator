@@ -58,15 +58,16 @@ def test_make_trend():
     import csv
     import pprint
 
+    # csv_file= "./output/定数_float.csv"
     csv_file= "./output/定数.csv"
     with open(csv_file, encoding = "utf-8") as f:
         csv_test = f.read()
     
     maketrend = make_trend.makeTrend()
     maketrend.read_from_csvtext(csv_test)
-    maketrend.trend_x("日付", "数値", 3)
+    maketrend.trend_x("日付", "数値", 1/2)
     maketrend.trend_sinx("日付", "数値", 1, 32)
-    maketrend.output_csv("./output/定数_changed.csv")
+    maketrend.output_csv("./output/定数_changed_float.csv")
 
 
 if __name__ == "__main__" :
