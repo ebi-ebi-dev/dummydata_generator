@@ -1,4 +1,5 @@
 # 仮想環境フォルダは無視
 make_Transactiondata
 
-media
+media/documents
+media/uploads
