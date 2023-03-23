@@ -189,7 +189,7 @@ class NormalDataTypeForm_Datetime(forms.Form):
     datetime_step = forms.IntegerField(
         label='ステップ（秒）',
         required=True,        
-        initial = 60,
+        initial = 3600,
         min_value=1,
         widget=forms.NumberInput(attrs={
             "onchange" : "set_datetime_step(this.id)",
@@ -204,7 +204,7 @@ class LinkDataTypeForm_Text(forms.Form):
         required=True,
         widget = forms.Textarea(attrs={
             'placeholder': "aaa\nbbb\nccc", 
-            "onchange" : "set_link_number_text(this.id)",
+            "onchange" : "set_link_text(this.id)",
             "class" : "form-control",
         }),
     )
@@ -228,7 +228,7 @@ class LinkDataTypeForm_Number(forms.Form):
         initial = 1,
         min_value=1,
         widget=forms.NumberInput(attrs={
-            "onchange" : "set_link_step(this.id)",
+            "onchange" : "set_link_number_step(this.id)",
             "class" : "mt-2 form-control",
         })
     )
@@ -289,7 +289,7 @@ class LinkDataTypeForm_Datetime(forms.Form):
     datetime_step = forms.IntegerField(
         label='ステップ（秒）',
         required=True,        
-        initial = 60,
+        initial = 3600,
         min_value=1,
         widget=forms.NumberInput(attrs={
             "onchange" : "set_link_datetime_step(this.id)",

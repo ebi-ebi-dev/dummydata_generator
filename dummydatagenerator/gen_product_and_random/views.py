@@ -27,7 +27,8 @@ def product_and_random(request):
             except:
                 return render(request, 'product_and_random.html', {
                 "JSON_text_area": JSONForm(request.POST),
-                "error_msg": {"JSON_error": "JSONの形式になっていない可能性があります。テキストエリアを確認してください。"}
+                "error_msg": {"JSON_error": "JSONの形式になっていない可能性があります。テキストエリアを確認してください。"},
+                "checked_flag" : True,
             })
             dummydata_generator.json_check()
             
