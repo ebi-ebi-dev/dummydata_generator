@@ -19,24 +19,8 @@ JSONファイルは次のルールに従って作成してください。
 error_sample = """
 JSONの例：
 [
-    {
-        "column_name": "code",
-        "generate_type": "random",
-        "generate_data": [
-            "a",
-            "b",
-            "c"
-        ]
-    },
-    {
-        "column_name": "value",
-        "linked_cname": "code",
-        "generate_data": [
-            "A",
-            "B",
-            "C"
-        ]
-    }
+    {"column_name": "code", "generate_type": "random","generate_data": ["a","b","c"]},
+    {"column_name": "value","linked_cname": "code","generate_data": ["A","B","C"]}
 ]
 """
 
@@ -154,7 +138,7 @@ class DummyDataGenerator:
                 if origin_column_datasize[c["linked_cname"]] == len(c["generate_data"]):
                     pass
                 else:
-                    self.error_msg_dict["error_msg"] = "{idx} 番目の項目について、データ長 '{cname}: {size}' をリンク先のデータの長さ '{cname_l}: {size_l}' と同じにしてください。".format(
+                    self.error_msg_dict["error_msg"] = "{idx} 番目の項目について、データ長 '{cname}: {size}' をリンク先のデータ長 '{cname_l}: {size_l}' と同じにしてください。".format(
                             idx = idx + 1, cname = c["column_name"], size = len(c["generate_data"]), cname_l = c["linked_cname"], size_l = origin_column_datasize[c["linked_cname"]]
                     )
                     self.error_msg_dict["error_form"] = error_form 
@@ -206,6 +190,10 @@ class DummyDataGenerator:
                     self.rand_df_set[c["linked_cname"]][c["column_name"]] = c["generate_data"]
         self.prod_num = len(self.prod_df_set)
         self.rand_num = len(self.rand_df_set)
+        print(self.prod_num)
+        print(self.rand_num)
+        print(self.prod_df_set)
+        print(self.rand_df_set)
 
     def make_product_data(self):
 
@@ -220,6 +208,7 @@ class DummyDataGenerator:
             self.df = pd.DataFrame()
         elif(self.prod_num == 1):
             for v in self.prod_df_set.values():
+                print(v)
                 self.df = v
         else:    
             for v in self.prod_df_set.values(): 
@@ -227,6 +216,7 @@ class DummyDataGenerator:
             self.df = recursive_merge(df_list)
 
     def make_random_data(self):
+        print(len(self.df))
         if(self.prod_num == 0):
             for v in self.rand_df_set.values():
                 tmp = random.choices(v.values.tolist(), k = 1)

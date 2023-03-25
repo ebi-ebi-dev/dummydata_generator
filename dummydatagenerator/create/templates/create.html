@@ -20,15 +20,22 @@
 
 <div class="mt-5">
   <div>
-    Output json
+    ★出来上がったJSONオブジェクトパーツ★
   </div>
 
-  <div class="mt-2 form-control form-control-lg" id="output_json">
+  <div class="mt-4 form-control form-control-lg" id="output_json">
   </div>
+  <div>
+    「JSON作成エリア」の配列[]内にカンマ区切りで追加してください
+  </div>
+  
 
 </div>
 
 <div class="mt-5">
+  <div>
+    JSON作成エリア
+  </div>
   <div class="form-floating">
     <textarea class="form-control" placeholder="Leave a comment here" id="json_form" style="height: 300px">
 [
@@ -37,7 +44,7 @@
   {"column_name": "日付", "generate_type": "product", "generate_data": ["2023/03/13", "2023/03/14", "2023/03/15"]},
   {"column_name": "日時", "linked_cname": "日付", "generate_data": ["2023/03/13 10:00:00", "2023/03/14 10:00:00", "2023/03/15 10:00:00"]}
 ]</textarea>
-    <label for="json_form">JSONを作成</label>
+    <label for="json_form">テンプレートを参考にJSONを作りましょう！</label>
   </div>
   <div class="col-md-3 mt-3">
     <button class="btn-lg form-control btn btn-danger" id="json_download">JSON として保存</button>
