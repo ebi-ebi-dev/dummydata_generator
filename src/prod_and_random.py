@@ -19,24 +19,8 @@ JSONファイルは次のルールに従って作成してください。
 error_sample = """
 JSONの例：
 [
-    {
-        "column_name": "code",
-        "generate_type": "random",
-        "generate_data": [
-            "a",
-            "b",
-            "c"
-        ]
-    },
-    {
-        "column_name": "value",
-        "linked_cname": "code",
-        "generate_data": [
-            "A",
-            "B",
-            "C"
-        ]
-    }
+    {"column_name": "code", "generate_type": "random","generate_data": ["a","b","c"]},
+    {"column_name": "value","linked_cname": "code","generate_data": ["A","B","C"]}
 ]
 """
 
