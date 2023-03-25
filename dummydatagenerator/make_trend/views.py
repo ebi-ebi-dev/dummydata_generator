@@ -30,9 +30,16 @@ def make_trend(request):
             })
         elif "set_trend" in request.POST:
             make_trend = makeTrend()
-            make_trend.read_from_csvtext(CSV_TEXT)
+            try:
+                make_trend.read_from_csvtext(CSV_TEXT)
+            except:
+                return render(request, "make_trend.html", {
+                    "forms" : DocumentForm(request.POST),
+                    "input_df" : "",
+                    "error_msg" : make_trend.error_msg_dict["error_msg"],
+                })
             make_trend.trend_x(request.POST["base_column"], request.POST["target_column"], float(request.POST["slope"]))
-            make_trend.trend_sinx(request.POST["base_column"], request.POST["target_column"], float(request.POST["amplitude"]), int(request.POST["frequency"]))
+            make_trend.trend_sinx(request.POST["base_column"], request.POST["target_column"], float(request.POST["amplitude"]), float(request.POST["frequency"]))
             if (make_trend.error_code == 1): 
                 return render(request, "make_trend.html", {
                     "forms" : DocumentForm(request.POST),

@@ -8,8 +8,8 @@ error_templete = """
 JSONファイルは次のルールに従って作成してください。
 1. １ブロックのキーは3つであること
 2. ３つのキーは以下の2パターンのどちらかであること
-   # ["column_name": str, "generate_type": "product" or "random", "generate_data": list]
-   # ["column_name": str, "linked_cname": str, "generate_data": list]
+    {"column_name": str, "generate_type": "product" or "random", "generate_data": [list]}
+    {"column_name": str, "linked_cname": str, "generate_data": [list]}
 3. 同じカラム名は存在しないこと
 4. generate_typeはproductかrandomであること
 5. linked_cnameは存在しているカラムを指定すること
