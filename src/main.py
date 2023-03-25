@@ -66,7 +66,7 @@ def test_make_trend():
     maketrend = make_trend.makeTrend()
     maketrend.read_from_csvtext(csv_test)
     maketrend.trend_x("日付", "数値", 1/2)
-    maketrend.trend_sinx("日付", "数値", 1, 32)
+    maketrend.trend_sinx("日付", "数値", 2, 0.5)
     maketrend.output_csv("./output/定数_changed_float.csv")
 
 

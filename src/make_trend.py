@@ -41,6 +41,12 @@ class makeTrend():
             csv_reader = csv.reader(f)
             csv_list = [row for row in csv_reader]
 
+            if len(csv_list) < 1:
+                print(f"CSVデータが読み込めません。再度アップロードしてください。")
+                self.error_msg_dict["error_msg"] = f"CSVデータが読み込めません。再度アップロードしてください。"
+                self.error_code = 1
+                return
+
             header = csv_list[0]
             csv_list = list(zip(*csv_list[1:])) # 転置: [[row1], [row2], ... ] -> [[col1], [col2],...]
 
@@ -93,10 +99,7 @@ class makeTrend():
             return
         
         self.output_df = self.output_df.sort_values(sort_column)
-        if (amp == 0):
-            coef = np.ones(len(self.output_df))
-        else:
-            coef = amp * (0.5 * np.sin(np.pi * np.arange(0, len(self.output_df)) / freq) + 1)
+        coef = np.exp(np.log(amp) * np.sin(np.pi * np.arange(0, len(self.output_df)) * freq / len(self.output_df)))
 
         target_column_type = self.get_list_type(self.output_df[target_column].to_list())
         self.output_df[target_column] = np.array(self.output_df[target_column] * coef, dtype = target_column_type)
