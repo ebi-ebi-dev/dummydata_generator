@@ -11,7 +11,3 @@ document.getElementById("go_makeTrend").addEventListener("click", () => {
     console.log("clicked");
     window.location.href = 'make_trend/';
 });
-
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-})
