@@ -6,6 +6,7 @@ from django.http import HttpResponse
 
 CSV_TEXT = ""
 OUTPUT_DF = None
+VIEW_TABLE_THRESHOLD = 5
 
 # Create your views here.
 def make_trend(request):
@@ -24,7 +25,7 @@ def make_trend(request):
                 })
             return render(request, "make_trend.html", {
                 "forms" : DocumentForm(request.POST),
-                "input_df" : make_trend.input_df.head(10).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
+                "input_df" : make_trend.input_df.head(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
                 "error_msg" : "",
                 "trendforms" : TrendForm()
             })
@@ -43,7 +44,7 @@ def make_trend(request):
             if (make_trend.error_code == 1): 
                 return render(request, "make_trend.html", {
                     "forms" : DocumentForm(request.POST),
-                    "input_df" : make_trend.input_df.head(10).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
+                    "input_df" : make_trend.input_df.head(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
                     "error_msg_trendform" : make_trend.error_msg_dict["error_msg"],
                     "trendforms" : TrendForm(request.POST)
                 })
@@ -61,10 +62,10 @@ def make_trend(request):
             OUTPUT_DF = make_trend.output_df
             return render(request, "make_trend.html", {
                 "forms" : DocumentForm(request.POST),
-                "input_df" : make_trend.input_df.head(10).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
+                "input_df" : make_trend.input_df.head(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
                 "error_msg_trendform" : "",
                 "trendforms" : TrendForm(request.POST),
-                "output_df" : make_trend.output_df.head(10).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
+                "output_df" : make_trend.output_df.head(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
                 "chart" : chart,
             })
         elif "download_csv" in request.POST:
