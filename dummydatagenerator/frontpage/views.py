@@ -7,3 +7,6 @@ class frontpage(TemplateView):
 
 class how_to_use(TemplateView):
     template_name = 'how_to_use.html'
+
+class JSON_samples(TemplateView):
+    template_name = 'JSON_samples.html'
