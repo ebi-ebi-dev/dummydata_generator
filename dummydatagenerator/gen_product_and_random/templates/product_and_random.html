@@ -60,15 +60,15 @@
     </div>
 </div>
 
-<div class="col">
-    <table class="table-secondary" style="width:100px; height:100px;">
-        {% if dataframe_head %}
-            {{ dataframe_head | safe }}
-        {% endif %}
-        {% if dataframe_tail %}
-            {{ dataframe_tail | safe }}
-        {% endif %}
-    </table>
+<div class="col mt-5">
+    {% if dataframe_head %}
+        <h5>上位10件</h5>
+        {{ dataframe_head | safe }}
+    {% endif %}
+    {% if dataframe_tail %}
+        <h5>末尾10件</h5>
+        {{ dataframe_tail | safe }}
+    {% endif %}
 </div>
 
 <nav aria-label="Page navigation example">

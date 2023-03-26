@@ -5,3 +5,7 @@ make_Transactiondata
 
 media/documents
 media/uploads
+
+input/
+output/
+src/
