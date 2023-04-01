@@ -1,5 +1,3 @@
-
-
 document.getElementById("json_download").addEventListener( 'click', (e) => {
     json_textarea = document.getElementById('json_form').value;
     let blobedText = new Blob([json_textarea], {type: 'text/plain' });
