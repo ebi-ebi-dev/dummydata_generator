@@ -10,7 +10,7 @@ class ColumnNameForm(forms.Form):
             "onchange" : "set_columnname(this.id)",
             "class" : "form-control",
         }),
-        label = "項目名",
+        label = "",
     )
 
 class ColumnTypeForm(forms.Form):
@@ -21,7 +21,7 @@ class ColumnTypeForm(forms.Form):
             ('normal', '項目作成'),
             ('link', 'リンク項目作成')
         ),
-        label='項目タイプ',
+        label='',
         required=True,
         widget=forms.widgets.Select(attrs = {
             "id" : "column_type",
@@ -95,6 +95,7 @@ class NormalDataTypeForm_Text(forms.Form):
     
     text = forms.CharField(
         initial = "aaa\nbbb\nccc",
+        label = "改行区切りでデータを入力",
         required=True,
         widget = forms.Textarea(attrs={
             'placeholder': "aaa\nbbb\nccc", 
@@ -106,6 +107,7 @@ class NormalDataTypeForm_Text(forms.Form):
 class NormalDataTypeForm_Number(forms.Form):
     number_min = forms.IntegerField(
         initial = 1,
+        label='最小値',
         widget=forms.NumberInput(attrs={
             "onchange" : "set_number_min(this.id)",
             "class" : "form-control",
@@ -113,6 +115,7 @@ class NormalDataTypeForm_Number(forms.Form):
     )
     number_max = forms.IntegerField(
         initial = 10,
+        label='最大値',
         widget=forms.NumberInput(attrs={
             "onchange" : "set_number_max(this.id)",
             "class" : "mt-2 form-control",
@@ -121,6 +124,7 @@ class NormalDataTypeForm_Number(forms.Form):
     number_step = forms.IntegerField(
         initial = 1,
         min_value=1,
+        label='ステップ',
         widget=forms.NumberInput(attrs={
             "onchange" : "set_number_step(this.id)",
             "class" : "mt-2 form-control",
@@ -157,15 +161,6 @@ class NormalDataTypeForm_Date(forms.Form):
         })
     )
 
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     date_min = cleaned_data.get('date_min')
-    #     date_max = cleaned_data.get('date_max')
-    #     date_step = cleaned_data.get('date_step')
-
-    #     if date_min is None or date_max is None or date_max is None:
-    #         raise forms.ValidationError('フィールドが入力されていません。')
-
 class NormalDataTypeForm_Datetime(forms.Form):
     import datetime
     datetime_min = forms.DateTimeField(
@@ -201,6 +196,7 @@ class LinkDataTypeForm_Text(forms.Form):
     
     text = forms.CharField(
         initial = "aaa\nbbb\nccc",
+        label = "改行区切りでデータを入力",
         required=True,
         widget = forms.Textarea(attrs={
             'placeholder': "aaa\nbbb\nccc", 
@@ -212,6 +208,7 @@ class LinkDataTypeForm_Text(forms.Form):
 class LinkDataTypeForm_Number(forms.Form):
     number_min = forms.IntegerField(
         initial = 1,
+        label='最小値',
         widget=forms.NumberInput(attrs={
             "onchange" : "set_link_number_min(this.id)",
             "class" : "form-control",
@@ -219,6 +216,7 @@ class LinkDataTypeForm_Number(forms.Form):
     )
     number_max = forms.IntegerField(
         initial = 10,
+        label='最大値',
         widget=forms.NumberInput(attrs={
             "onchange" : "set_link_number_max(this.id)",
             "class" : "mt-2 form-control",
@@ -227,6 +225,7 @@ class LinkDataTypeForm_Number(forms.Form):
     number_step = forms.IntegerField(
         initial = 1,
         min_value=1,
+        label='ステップ',
         widget=forms.NumberInput(attrs={
             "onchange" : "set_link_number_step(this.id)",
             "class" : "mt-2 form-control",
