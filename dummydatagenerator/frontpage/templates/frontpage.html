@@ -2,52 +2,51 @@
 {% load static %}
 {% block content %}
 
-<div class="container">
-    <h3>本アプリケーションでは、大量のダミーデータを簡単に作成することができます！</h3>
-    <h3>概要や使い方については、上部の「How To Use」をご一読ください！</h3>
-    <div class="row mt-5">
-        <div class="col-7" >
-            <img src="media/image/sample1.png" class="img-thumbnail" border="5" alt="sample1">
-        </div>
+<div>
+    <h3>Excelだと少し大変な数万件レベルのダミーデータを簡単に作成することができます！</h3>
+    <h3>概要や使い方については、上部の「マニュアル」をご一読ください！</h3>
+</div>
+<div class="mt-5">
+    <div class="row">
         <div class="col" >
-            <button id = "go_createData" type="button" class="button btn-danger btn-lg">データを作る</button>
-            <h4 class="mt-4">数値や日付、日時のデータを生成します。</h4>
-            <div class="mt-2">
-                INPUT: 項目名や日付等を入力<br>
-                OUTPUT: JSONファイル
-            </div>
+            <h3>Step. 1</h3>
+            <h4 class="mt-4">数値や日付、日時のデータを作ります。</h4>
+        </div>
+
+        <div class="col" >
+            <h3>Step. 2</h3>
+            <h4 class="mt-4">作ったデータを組み合わせて増やします。</h4>
+        </div>
+
+        <div class="col">
+            <h3>Step. 3</h3>
+            <h4 class="mt-4">数値データに対して傾向を付与します。</h4>
         </div>
     </div>
-</div>
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-7" >
+    <div class="row mt-2">
+        <div class="col">
+            <img src="media/image/sample1.png" class="img-thumbnail" alt="sample1">
+        </div>
+        <div class="col">
             <img src="media/image/sample2.png" class="img-thumbnail" alt="sample2">
         </div>
-        <div class="col" >
-            <button id = "go_prodAndRand" type="button" class="button btn-danger btn-lg">データを増やす</button>
-            <h4 class="mt-4">生成したデータを組み合わせたり、ランダムに結合して1つのテーブルを作成します。</h4>
-            <div class="mt-2">
-                INPUT: JSONファイル<br>
-                OUTPUT: CSVファイル    
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-7" >
+        <div class="col">
             <img src="media/image/sample3.png" class="img-thumbnail" alt="sample3">
         </div>
-        <div class="col" >
-            <button id = "go_makeTrend" type="button" class="button btn-danger btn-lg">傾向をつける</button>
-            <h4 class="mt-4">数値データに対して傾向を付与します。</h4>
-            <div class="mt-2">
-                INPUT: CSVファイル<br>
-                OUTPUT: CSVファイル
-            </div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col d-grid gap-2">
+            <button id = "go_createData" type="button" class="button btn-lg btn-info">1. データを作る</button>            
+        </div>
+
+        <div class="col d-grid gap-2">
+            <button id = "go_prodAndRand" type="button" class="button btn-lg btn-info">2. データを増やす</button>
+        </div>
+
+        <div class="col d-grid gap-2">
+            <button id = "go_makeTrend" type="button" class="button btn-lg btn-info">3. 傾向をつける</button>
         </div>
     </div>
 </div>
