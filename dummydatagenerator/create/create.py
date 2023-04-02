@@ -54,16 +54,16 @@ class CreateData:
             "generate_data" : datalist
         }
     
-    def create_amount(self, cname:str, generate_type:str, min:int, max:int, step:int):
-        datalist = [x for x in range(min, max, step)]
+    def create_amount(self, cname:str, generate_type:str, min:float, max:float, step:float):
+        datalist = [x for x in self.frange(min, max, step)]
         self.data = {
             "column_name" : cname,
             "generate_type" : generate_type,
             "generate_data" : datalist
         }
     
-    def create_link_amount(self, cname:str, generate_type:str, min: int, max: int, step : int):
-        datalist = [x for x in range(min, max, step)]
+    def create_link_amount(self, cname:str, generate_type:str, min:float, max:float, step:float):
+        datalist = [x for x in self.frange(min, max, step)]
         self.data = {
             "column_name" : cname,
             "linked_cname" : generate_type,
@@ -86,7 +86,24 @@ class CreateData:
             "generate_data" : list
         }
 
-    
+    def frange(self, min:float, max:float, step:float):
+        float_list = [min, max, step]
+        decimal_places = 0
+
+        if all([n.is_integer() for n in float_list]) is True: 
+            return np.arange(min, max, step).astype(int).tolist()
+
+        for n in float_list:
+            if( n.is_integer() is False):
+                if (decimal_places < len(str(n).split(".")[1])): 
+                    decimal_places = len(str(n).split(".")[1])
+        new_min = int(min * 10**decimal_places)
+        new_max = int(max * 10**decimal_places)
+        new_step = int(step * 10**decimal_places)
+        return (np.arange(new_min, new_max, new_step) / (10**decimal_places)).tolist()
+
+        
+
     def output_json(self, output_file):
         with open(output_file, 'w') as f:
             json.dump(self.data, f, ensure_ascii=False, indent=2)

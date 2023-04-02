@@ -16,7 +16,6 @@ VIEW_TABLE_THRESHOLD = 10
 # Create your views here.
 def product_and_random(request):
     global JSON_TEXT, INPUT_JSON_FROM, OUTPUT_DF
-    print(request.POST)
     if request.method == 'POST':
         if "check" in request.POST: 
             JSON_TEXT = request.POST["text"]
@@ -38,7 +37,6 @@ def product_and_random(request):
                 "checked_flag" : True,
                 })
         elif "generate" in request.POST:
-            print("generate!")
             dummydata_generator = DummyDataGenerator()
             dummydata_generator.read_from_jsontext(JSON_TEXT)
             dummydata_generator.json_check()

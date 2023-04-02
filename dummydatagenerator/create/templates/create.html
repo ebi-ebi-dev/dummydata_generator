@@ -2,58 +2,82 @@
 {% load static %}
 {% block content %}
 
-<form id="mainform" action="{% url 'create:create' %}" method="POST" data-validate>
-  {% csrf_token %}
-  <div id="column_name_form">
-    {{ column_name_form }}
+<title>Step. 1 データを作る</title>
+
+<div>
+  <h3>Step. 1のゴールは、JSONを作成することです！ </h3>
+  <h5>例えば、「日付」と「営業担当者」を組み合わせたデータを作りたい場合はこのようなJSONを作成します。</h5>
+  <h5>１項目ずつ、データを作成していきます。</h5>
+
+  <div class="row">
+    <div class="col-4">
+      <img src="../media/image/sample2.png" class="img-thumbnail" alt="sample2">
+    </div>
+    <div class="col">
+<textarea readonly class="form-control h-100" style="font-size:20px;" id="exampleFormControlTextarea1" rows="6">[
+{"column_name": "日付", "generate_type": "product", "generate_data": ["2025/01/01", "2025/01/03", "2025/01/05"]},
+{"column_name": "営業担当者", "generate_type": "product", "generate_data": ["田中陽介", "三田恵", "佐田夏樹"]}
+]</textarea>
+    </div>
   </div>
-  <div class="mt-5" id="column_type_form">
-    {{ column_type_form }}
+  
+</div>
+
+<div class="row mt-5">
+  <div class="col">
+    <form class="mt-5" id="mainform" action="{% url 'create:create' %}" method="POST" data-validate>
+      {% csrf_token %}
+      <div id="column_name_form">
+        {{ column_name_form }}
+      </div>
+      <div class="mt-5" id="column_type_form">
+        {{ column_type_form }}
+      </div>
+      <div class="mt-5" id="generate_type_form">
+      </div>
+      <div class="mt-5" id="data_detail">
+      </div>
+      <div class="mt-5" id="gen_button">
+      </div>
+    </form>
   </div>
-  <div class="mt-5" id="generate_type_form">
+  <div class="col">
+    <img src="../media/image/navigation/create.png" class="img-thumbnail" alt="sample2">
   </div>
-  <div class="mt-5" id="data_detail">
-  </div>
-  <div class="mt-5" id="gen_button">
-  </div>
-</form>
+</div>
+
 
 <div class="mt-5">
-  <h3>★出来上がったJSONオブジェクトパーツ★</h3>
+  <h3>★出来上がったJSONパーツ★</h3>
 
   <div class="mt-4 form-control form-control-lg" id="output_json">
   </div>
   <div class="mt-2">
-    「JSON作成エリア」の配列[]内にカンマ区切りで追加してください
+    「JSON作成エリア」の[]内にカンマ区切りで追加してください。
   </div>
   
 
 </div>
 
-<div class="mt-5">
-  <h3>JSON作成エリア</h3>
-  <div class="form-floating">
-    <textarea class="form-control" placeholder="Leave a comment here" id="json_form" style="height: 300px">
+<div class="mt-5 row">
+  <div class="col">
+    <h3>JSON作成エリア</h3>
+    <div class="form-floating">
+      <textarea class="form-control" placeholder="Leave a comment here" id="json_form" style="height: 300px">
 [
-  {"column_name": "文字", "generate_type": "product", "generate_data": ["aaa", "bbb", "ccc"]},
-  {"column_name": "数値", "generate_type": "random", "generate_data": [100, 250, 300]},
-  {"column_name": "日付", "generate_type": "product", "generate_data": ["2023/03/13", "2023/03/14", "2023/03/15"]},
-  {"column_name": "日時", "linked_cname": "日付", "generate_data": ["2023/03/13 10:00:00", "2023/03/14 10:00:00", "2023/03/15 10:00:00"]}
+
 ]</textarea>
     <label for="json_form">テンプレートを参考にJSONを作りましょう！</label>
+    </div>
   </div>
-  <div class="col-md-3 mt-3">
-    <button class="btn-lg form-control btn btn-danger" id="json_download">JSON として保存</button>
+
+  <div class="col-2 align-self-end">
+    <button class="mb-5 btn-lg form-control btn btn-danger" id="json_download">JSON として保存</button>
+    <a class="button btn-lg btn-primary" href="/product_and_random/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">データを増やす</a>
+    <p>※ 別タブで開きます。</p>
+    
   </div>
 </div>
-
-
-<nav aria-label="Page navigation example">
-  <ul class="mt-5 pagination">
-    <li class="page-item"><a class="btn-lg page-link link-danger" href="/">HOME</a></li>
-    <li class="page-item"><a class="btn-lg page-link link-danger" href="/product_and_random/" target="_blank" rel="noopener noreferrer">データを増やす</a></li>
-  </ul>
-</nav>
 
 <script src="{% static 'create/create.js' %}"></script>
 <script src="{% static 'create/json_download.js' %}"></script>
