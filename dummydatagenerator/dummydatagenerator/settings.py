@@ -136,6 +136,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
+
 # 追記
 import os
 MEDIA_URL = '/media/'
