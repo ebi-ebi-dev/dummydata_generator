@@ -16,8 +16,8 @@ class DocumentForm(forms.Form):
 class JSONForm(forms.Form):
     text = forms.CharField(
         # initial = DEFAULT_JSON, <- 機能しない
+        label = "JSONテキストを入力",
         required=True,
-        label = "",
         widget = forms.Textarea(attrs={
             'placeholder': DEFAULT_JSON, 
             "class" : "form-control",
