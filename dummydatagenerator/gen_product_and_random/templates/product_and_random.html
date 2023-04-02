@@ -2,13 +2,20 @@
 {% load static %}
 <!-- {% load widget_tweaks %} -->
 
+<title>Step. 2 データを増やす</title>
+
+<div>
+    <h3>Step. 2のゴールは、CSVを作成することです！ </h3>
+    <h5>Step. 1で作成したJSONのテキストを貼り付けるだけでCSVを作成できます！</h5>
+</div>
+
 <form class="mt-5" action = "" method="post" id="json_form">
     {% csrf_token %}
     {% if JSON_text_area %}
     {{ JSON_text_area }}
     {% endif %}
     <div class="mt-2 col d-flex align-items-end">
-        <button form="json_form" class="button is-danger" type="submit" name = "check">JSON チェック</button>
+        <button form="json_form" class="button btn-lg is-danger" type="submit" name = "check">JSON チェック</button>
     </div>
 </form>
 
@@ -40,7 +47,7 @@
             {% csrf_token %}
             <div class = "field">
                 <div class = "control">
-                    <button class="mt-5 button is-danger" name="generate" href="#">Generate!</button> 
+                    <button class="mt-5 button btn-lg is-danger" name="generate" href="#">Generate!</button> 
                 </div>
             </div>
         </form>
@@ -52,7 +59,7 @@
                 {% csrf_token %}
                 <div class = "field">
                     <div class = "control">
-                        <button class="mt-5 button is-danger" name = "download_csv"> Download CSV</button> 
+                        <button class="mt-5 button btn-lg is-danger" name = "download_csv"> Download CSV</button> 
                     </div>
                 </div>
             </form>
@@ -71,16 +78,22 @@
     {% endif %}
 </div>
 
-<nav aria-label="Page navigation example">
+<div class="mt-5 row">
+    <div class="col">
+    </div>
+  
+    <div class="col-2 align-self-end">
+      <!-- <button class="mb-5 btn-lg form-control btn btn-danger" id="json_download">JSON として保存</button> -->
+      <a class="button btn-lg btn-primary" href="/make_trend/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">傾向をつける</a>
+      <p>※ 別タブで開きます。</p>
+    </div>
+  </div>
+
+<!-- <nav aria-label="Page navigation example">
     <ul class="mt-5 pagination">
       <li class="page-item"><a class="btn-lg page-link link-danger" href="/create">データを作る</a></li>
       <li class="page-item"><a class="btn-lg page-link link-danger" href="/make_trend/">傾向をつける</a></li>
     </ul>
-</nav>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" 
-    crossorigin="anonymous">
-</script>
+</nav> -->
 
 {% endblock %}

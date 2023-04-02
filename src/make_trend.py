@@ -19,8 +19,7 @@ class makeTrend():
             return True
     
     def is_int(self, n: float):
-        if n.is_integer(): return True
-        else: return False
+        return n.is_integer()
 
     def get_list_type(self, in_list):
         tmp = [self.is_number(x) for x in in_list]
