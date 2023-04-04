@@ -10,7 +10,7 @@ class ColumnNameForm(forms.Form):
             "onchange" : "set_columnname(this.id)",
             "class" : "form-control",
         }),
-        label = "",
+        label='項目名',
     )
 
 class ColumnTypeForm(forms.Form):
@@ -21,14 +21,13 @@ class ColumnTypeForm(forms.Form):
             ('normal', '項目作成'),
             ('link', 'リンク項目作成')
         ),
-        label='',
+        label="項目タイプ",
         required=True,
         widget=forms.widgets.Select(attrs = {
             "id" : "column_type",
             "onchange" : "set_columntype(this.id)",
             "class" : "form-control",
         }),
-        # initial='normal'
     )
 
 
@@ -59,7 +58,7 @@ class NormalForm(forms.Form):
         required=True,
         widget=forms.Select(attrs={
             "onchange" : "set_datatype(this.id)",
-            'class': "mt-2 form-control",
+            'class': "mt-4 form-control",
         }) ,
     )
 
@@ -87,7 +86,7 @@ class LinkForm(forms.Form):
         required=True,
         widget=forms.Select(attrs={
             "onchange" : "set_datatype(this.id)",
-            "class" : "mt-2 form-control",
+            "class" : "mt-4 form-control",
         }),
     )
 

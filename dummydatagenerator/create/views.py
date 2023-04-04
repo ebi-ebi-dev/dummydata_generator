@@ -101,7 +101,7 @@ def create(request):
             d = {
                 'generate_type_form': str(column_type_form),
                 'data_detail': str(data_type_detail_form),
-                'gen_button': '<button type="button" class="button is-danger" onclick=send_data_detail() name="generate" >Generate</button>',
+                'gen_button': '<button type="button" class="button-lg button is-danger" onclick=send_data_detail() name="generate" >Generate</button>',
                 'output_json' : output_json
             }
             return JsonResponse(d)

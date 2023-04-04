@@ -4,15 +4,37 @@
 
 <title>Step. 2 データを増やす</title>
 
-<div>
-    <h3>Step. 2のゴールは、CSVを作成することです！ </h3>
-    <h5>Step. 1で作成したJSONのテキストを貼り付けるだけでCSVを作成できます！</h5>
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <h3>Step. 2ではなにをするの？</h3>
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <h3>Step. 2のゴールは、CSVを作成することです！ </h3>
+                <h5>Step. 1で作成したJSONのテキストを貼り付けるだけでCSVを作成できます！</h5>
+                <h5>試しに下記のJSONをコピーして、テキストエリアに貼り付けてみましょう！</h5>
+<textarea readonly class="form-control h-80" style="font-size:20px;" id="exampleFormControlTextarea1" rows="4">[
+{"column_name": "日付", "generate_type": "product", "generate_data": ["2025/01/01", "2025/01/03", "2025/01/05"]},
+{"column_name": "営業担当者", "generate_type": "product", "generate_data": ["田中陽介", "三田恵", "佐田夏樹"]}
+]</textarea>
+            </div>
+        </div>
+    </div>
 </div>
 
 <form class="mt-5" action = "" method="post" id="json_form">
     {% csrf_token %}
     {% if JSON_text_area %}
-    {{ JSON_text_area }}
+    <!-- 「このフィールドは必須です」を非表示にするためにfor文を使う -->
+    {% for field in JSON_text_area %}
+        <div class="field">
+            {{ field.label_tag }}
+            {{ field }}
+        </div>
+    {% endfor %}
     {% endif %}
     <div class="mt-2 col d-flex align-items-end">
         <button form="json_form" class="button btn-lg is-danger" type="submit" name = "check">JSON チェック</button>
