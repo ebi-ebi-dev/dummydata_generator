@@ -4,48 +4,60 @@
 
 <title>Step. 1 データを作る</title>
 
-<div>
-  <h3>Step. 1のゴールは、JSONを作成することです！ </h3>
-  <h5>例えば、「日付」と「営業担当者」を組み合わせたデータを作りたい場合はこのようなJSONを作成します。</h5>
-  <h5>１項目ずつ、データを作成していきます。</h5>
 
-  <div class="row">
-    <div class="col-4">
-      <img src="../media/image/sample2.png" class="img-thumbnail" alt="sample2">
-    </div>
-    <div class="col">
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        <h3>Step. 1ではなにをするの？</h3>
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <h3>Step. 1のゴールは、JSONを作成することです！ </h3>
+        <h5>例えば、「日付」と「営業担当者」を組み合わせたデータを作りたい場合はこのようなJSONを作成します。</h5>
+        <h5>フォームから１項目ずつ、データを作成していきます。</h5>
+        <h5>詳細は画面上部のマニュアルをご参照ください。</h5>
+        <div class="row">
+          <div class="col-4">
+            <img src="../media/image/sample2.png" class="img-thumbnail" alt="sample2">
+          </div>
+          <div class="col">
 <textarea readonly class="form-control h-100" style="font-size:20px;" id="exampleFormControlTextarea1" rows="6">[
 {"column_name": "日付", "generate_type": "product", "generate_data": ["2025/01/01", "2025/01/03", "2025/01/05"]},
 {"column_name": "営業担当者", "generate_type": "product", "generate_data": ["田中陽介", "三田恵", "佐田夏樹"]}
 ]</textarea>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  
 </div>
 
+
 <div class="row mt-5">
-  <div class="col">
-    <form class="mt-5" id="mainform" action="{% url 'create:create' %}" method="POST" data-validate>
+  <div class="col-4">
+    <h2>操作ガイド</h2>
+    <img class="mt-3" src="../media/image/navigation/create.png" class="img-thumbnail" alt="sample2">
+  </div>
+  <div class="ml-5 col">
+    <h2>フォーム</h2>
+    <form class="mt-2" id="mainform" action="{% url 'create:create' %}" method="POST" data-validate>
       {% csrf_token %}
-      <div id="column_name_form">
+      <div class="mt-2" id="column_name_form">
         {{ column_name_form }}
-      </div>
-      <div class="mt-5" id="column_type_form">
+      <div class="mt-2" id="column_type_form">
         {{ column_type_form }}
       </div>
-      <div class="mt-5" id="generate_type_form">
+      <div class="mt-4" id="generate_type_form">
       </div>
-      <div class="mt-5" id="data_detail">
+      <div class="mt-4" id="data_detail">
       </div>
       <div class="mt-5" id="gen_button">
       </div>
     </form>
   </div>
-  <div class="col">
-    <img src="../media/image/navigation/create.png" class="img-thumbnail" alt="sample2">
-  </div>
 </div>
-
 
 <div class="mt-5">
   <h3>★出来上がったJSONパーツ★</h3>
@@ -55,8 +67,6 @@
   <div class="mt-2">
     「JSON作成エリア」の[]内にカンマ区切りで追加してください。
   </div>
-  
-
 </div>
 
 <div class="mt-5 row">

@@ -4,14 +4,37 @@
 
 <title>Step. 3 傾向をつける</title>
 
-<div>
-    <h3>Step. 3のゴールは、CSVを加工することです！ </h3>
-    <h5>Step. 2で作成したCSVをアップロードして、日付に対して右肩あがりといった傾向をつけていきましょう！</h5>
+<div class="accordion" id="accordionExample">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <h3>Step. 3ではなにをするの？</h3>
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <h3>Step. 3のゴールは、CSVを加工することです！ </h3>
+                <h5>Step. 2で作成したCSVをアップロードして、日付に対して右肩あがりといった傾向をつけていきましょう！</h5>
+                <h5>倍率、変動率、周期の3つのパラメータを指定して、傾向をつけていきます。</h5>
+
+                <h6 class="mt-3">■倍率・・・値が大きいほど数値の傾きが大きくなります。</h6>
+                <h6>■変動率・・・値が大きいほど数値の増減値（波の高さ）が大きくなります。</h6>
+                <h6>■周期・・・値が大きいほど値が大きいほど数値が激しく増減します。</h6>
+                <img src="../media/image/navigation/make_trend.png" class="img-thumbnail" alt="sample2">
+            </div>
+        </div>
+    </div>
 </div>
 
 <form  class="mt-5" id="mainform" action="" method="POST" name="aaa" enctype="multipart/form-data" data-validate>
     {% csrf_token %}
-    {{ forms }}
+    <!-- 「このフィールドは必須です」を非表示にするためにfor文を使う -->
+    {% for field in forms %}
+        <div class="field">
+            {{ field.label_tag }}
+            {{ field }}
+        </div>
+    {% endfor %}
     <div class="mt-2 col d-flex align-items-end">
         <button form="mainform" class="button btn-lg is-danger" type="submit" name = "upload_csv">CSV アップロード</button>
     </div>
