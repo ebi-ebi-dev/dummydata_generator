@@ -97,7 +97,6 @@ def create(request):
                             create_data.create_link_datetime(dic["column_name"], dic["link_column_name"], dic["link_datetime_min"], dic["link_datetime_max"], int(dic["link_datetime_step"]))
                 print("output: ", create_data.data)
             output_json = json.dumps(create_data.data, ensure_ascii=False)
-            # print(dic)
             d = {
                 'generate_type_form': str(column_type_form),
                 'data_detail': str(data_type_detail_form),

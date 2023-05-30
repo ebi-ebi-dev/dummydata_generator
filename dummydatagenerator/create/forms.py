@@ -154,9 +154,11 @@ class NormalDataTypeForm_Date(forms.Form):
         label='ステップ（日）',
         required=True,        
         initial = 1,
+        min_value=1,
         widget=forms.NumberInput(attrs={
             "onchange" : "set_date_step(this.id)",
             "class" : "mt-2 form-control",
+            "min": 1
         })
     )
 

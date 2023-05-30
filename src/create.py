@@ -14,7 +14,10 @@ class CreateData:
         start = datetime.datetime.strptime(start, "%Y/%m/%d").date()
         end = datetime.datetime.strptime(end, "%Y/%m/%d").date()
         days_num = (end - start).days
-        datalist = [(start + datetime.timedelta(days=x)).strftime("%Y/%m/%d") for x in range(0, days_num, step)]
+        if(step <= 0): 
+            datalist = []
+        else:
+            datalist = [(start + datetime.timedelta(days=x)).strftime("%Y/%m/%d") for x in range(0, days_num, step)]
         self.data = {
             "column_name" : cname,
             "generate_type" : generate_type,
@@ -25,7 +28,10 @@ class CreateData:
         start = datetime.datetime.strptime(start, "%Y/%m/%d").date()
         end = datetime.datetime.strptime(end, "%Y/%m/%d").date()
         days_num = (end - start).days
-        datalist = [(start + datetime.timedelta(days=x)).strftime("%Y/%m/%d") for x in range(0, days_num, step)]
+        if(step <= 0): 
+            datalist = []
+        else:
+            datalist = [(start + datetime.timedelta(days=x)).strftime("%Y/%m/%d") for x in range(0, days_num, step)]
         self.data = {
             "column_name" : cname,
             "linked_cname" : linked_cname,
@@ -36,7 +42,10 @@ class CreateData:
         start = datetime.datetime.strptime(start, "%Y/%m/%d %H:%M:%S")
         end = datetime.datetime.strptime(end, "%Y/%m/%d %H:%M:%S")
         seconds_num = int((end - start).total_seconds())
-        datalist = [(start + datetime.timedelta(seconds=x)).strftime("%Y/%m/%d %H:%M:%S") for x in range(0, seconds_num, step)]
+        if(step <= 0): 
+            datalist = []
+        else:
+            datalist = [(start + datetime.timedelta(seconds=x)).strftime("%Y/%m/%d %H:%M:%S") for x in range(0, seconds_num, step)]
         self.data = {
             "column_name" : cname,
             "generate_type" : generate_type,
@@ -47,7 +56,10 @@ class CreateData:
         start = datetime.datetime.strptime(start, "%Y/%m/%d %H:%M:%S")
         end = datetime.datetime.strptime(end, "%Y/%m/%d %H:%M:%S")
         seconds_num = int((end - start).total_seconds())
-        datalist = [(start + datetime.timedelta(seconds=x)).strftime("%Y/%m/%d %H:%M:%S") for x in range(0, seconds_num, step)]
+        if(step <= 0): 
+            datalist = []
+        else:
+            datalist = [(start + datetime.timedelta(seconds=x)).strftime("%Y/%m/%d %H:%M:%S") for x in range(0, seconds_num, step)]
         self.data = {
             "column_name" : cname,
             "linked_cname" : linked_cname,
