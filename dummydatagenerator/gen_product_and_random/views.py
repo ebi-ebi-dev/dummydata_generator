@@ -8,6 +8,10 @@ import json
 import pandas as pd
 import io
 
+import dummydatagenerator.my_logger as my_logger
+mylogger = my_logger.my_logger()
+log_format = """[gen_product_and_random] {client_ip} > {msg}"""
+
 JSON_TEXT = ""
 INPUT_JSON_FROM = None
 OUTPUT_DF = pd.DataFrame()
@@ -24,12 +28,20 @@ def product_and_random(request):
             try:
                 dummydata_generator.read_from_jsontext(JSON_TEXT)
             except:
+                mylogger.error(log_format.format(
+                    client_ip = request.META.get('REMOTE_ADDR'),
+                    msg = "JSON check does not passed. "
+                    ))
                 return render(request, 'product_and_random.html', {
                 "JSON_text_area": JSONForm(request.POST),
                 "error_msg": {"JSON_error": "JSONの形式になっていない可能性があります。テキストエリアを確認してください。"},
                 "checked_flag" : True,
             })
             dummydata_generator.json_check()
+            mylogger.info(log_format.format(
+                client_ip = request.META.get('REMOTE_ADDR'),
+                msg = "JSON check passed. "
+                ))
             
             return render(request, 'product_and_random.html', {
                 "JSON_text_area": JSONForm(request.POST),
@@ -47,6 +59,10 @@ def product_and_random(request):
             OUTPUT_DF = dummydata_generator.df
 
             if(len(OUTPUT_DF) < VIEW_TABLE_THRESHOLD ):
+                mylogger.info(log_format.format(
+                    client_ip = request.META.get('REMOTE_ADDR'),
+                    msg = f"generate CSV \n {OUTPUT_DF.head()}"
+                    ))
                 return render(request, 'product_and_random.html', {
                     "JSON_text_area": INPUT_JSON_FROM,
                     "dataframe_head": OUTPUT_DF.head(VIEW_TABLE_THRESHOLD).to_html(classes=["table", "table-bordered", "table-hover, overflow-scroll"]),
@@ -62,6 +78,10 @@ def product_and_random(request):
                 })
 
         elif "download_csv" in request.POST:
+            mylogger.info(log_format.format(
+                client_ip = request.META.get('REMOTE_ADDR'),
+                msg = "CSV downloaded. "
+                ))
             response = HttpResponse(content_type='text/csv')
             response['Content-Disposition'] = 'attachment; filename=filename.csv'
             OUTPUT_DF.to_csv(path_or_buf=response, sep=',', index=False)

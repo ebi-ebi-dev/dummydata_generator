@@ -9,6 +9,11 @@ from .create import CreateData
 
 import json
 
+import dummydatagenerator.my_logger as my_logger
+mylogger = my_logger.my_logger()
+log_format = """[create] {client_ip} > column_name: {column_name}, data_length: {data_length}, sample : {sample}"""
+num_pick_up_samples = 10
+
 def create(request):
     if request.method == "POST":
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
@@ -95,7 +100,14 @@ def create(request):
                             create_data.create_link_date(dic["column_name"], dic["link_column_name"], dic["link_date_min"], dic["link_date_max"], int(dic["link_date_step"]))
                         if (dic["data_type"] == "datetime"):
                             create_data.create_link_datetime(dic["column_name"], dic["link_column_name"], dic["link_datetime_min"], dic["link_datetime_max"], int(dic["link_datetime_step"]))
-                print("output: ", create_data.data)
+            print("output: ", create_data.data)
+            if(len(create_data.data.keys()) != 0):
+                mylogger.info(log_format.format(
+                    client_ip = request.META.get('REMOTE_ADDR'), 
+                    column_name = create_data.data["column_name"],
+                    data_length = len(create_data.data["generate_data"]),
+                    sample = create_data.data["generate_data"] if len(create_data.data["generate_data"]) < num_pick_up_samples else create_data.data["generate_data"][0:num_pick_up_samples]
+                    ))
             output_json = json.dumps(create_data.data, ensure_ascii=False)
             d = {
                 'generate_type_form': str(column_type_form),
