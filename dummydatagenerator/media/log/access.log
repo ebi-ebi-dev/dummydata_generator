@@ -1,0 +1,110 @@
+2023-05-31 03:59:27,275 - INFO - my_logger.py - info - test
+2023-05-31 04:01:29,653 - INFO - my_logger.py - info - test
+2023-05-31 04:03:11,913 - INFO - my_logger.py - info - test
+2023-05-31 04:06:24,093 - INFO - my_logger.py - info - test
+2023-05-31 04:10:38,648 - INFO - my_logger.py - info - test
+2023-05-31 04:11:10,374 - INFO - my_logger.py - info - test
+2023-05-31 04:19:27,068 - INFO - my_logger.py - info - test
+2023-05-31 04:20:16,166 - INFO - my_logger.py - info - test
+2023-05-31 04:20:33,931 - INFO - my_logger.py - info - test
+2023-05-31 04:21:15,642 - INFO - my_logger.py - info - test
+2023-05-31 04:23:50,585 - INFO - my_logger.py - info - test
+2023-05-31 04:26:53,593 - INFO - my_logger.py - info - test
+2023-05-31 04:27:32,641 - INFO - my_logger.py - info - test
+2023-05-31 04:30:19,598 - INFO - my_logger.py - info - test
+2023-05-31 12:25:07,259 - INFO - my_logger.py - info - test
+2023-05-31 13:45:25,351 - INFO - my_logger.py - info - test
+2023-05-31 13:50:19,698 - INFO - my_logger.py - info - test
+2023-05-31 13:51:21,055 - INFO - my_logger.py - info - test
+2023-05-31 13:52:08,355 - INFO - my_logger.py - info - test
+2023-05-31 13:53:35,295 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 13:53:55,150 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 13:53:55,151 - INFO - my_logger.py - info - visit manual
+2023-05-31 13:53:55,151 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 13:58:55,149 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 13:58:55,149 - INFO - my_logger.py - info - visit manual
+2023-05-31 13:58:55,150 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 13:59:12,287 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 13:59:12,287 - INFO - my_logger.py - info - visit manual
+2023-05-31 13:59:12,287 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:00:15,895 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:00:15,895 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:00:15,896 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:05:16,928 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:05:16,929 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:05:16,929 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:05:28,117 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:05:28,118 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:05:28,118 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:05:58,791 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:05:58,791 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:05:58,792 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:06:06,484 - INFO - my_logger.py - info - 127.0.0.1: {}
+2023-05-31 14:06:09,222 - INFO - my_logger.py - info - 127.0.0.1: {'column_name': 'Textdd', 'generate_type': 'product', 'generate_data': [1, 2, 3, 4, 5, 6, 7, 8, 9]}
+2023-05-31 14:09:10,261 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:09:10,262 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:09:10,262 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:12:58,157 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:12:58,158 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:12:58,158 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:13:28,034 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:13:28,034 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:13:28,034 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:14:12,309 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:14:12,309 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:14:12,310 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:15:29,112 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:15:29,112 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:15:29,113 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:15:44,434 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:15:44,435 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:15:44,435 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:17:03,331 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:17:03,331 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:17:03,332 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:18:30,356 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:18:30,356 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:18:30,357 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:18:38,464 - INFO - my_logger.py - info - 127.0.0.1: column_name: ‚ ‚ ‚ ‚ ‚ , data_length: 3, sample = ['aaa', 'bbb', 'ccc']
+2023-05-31 14:19:39,695 - INFO - my_logger.py - info - 127.0.0.1: column_name: ‚ ‚ ‚ ‚ ‚ , data_length: 10, sample = ['2023/05/31', '2023/06/01', '2023/06/02', '2023/06/03', '2023/06/04', '2023/06/05', '2023/06/06', '2023/06/07', '2023/06/08', '2023/06/09']
+2023-05-31 14:19:56,623 - INFO - my_logger.py - info - 127.0.0.1: column_name: ‚ ‚ ‚ ‚ ‚ , data_length: 24, sample = ['2023/05/31 14:18:00', '2023/05/31 15:18:00', '2023/05/31 16:18:00', '2023/05/31 17:18:00', '2023/05/31 18:18:00', '2023/05/31 19:18:00', '2023/05/31 20:18:00', '2023/05/31 21:18:00', '2023/05/31 22:18:00', '2023/05/31 23:18:00']
+2023-05-31 14:20:50,737 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:20:50,737 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:20:50,738 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:21:25,996 - INFO - my_logger.py - info - visit frontpage
+2023-05-31 14:21:25,996 - INFO - my_logger.py - info - visit manual
+2023-05-31 14:21:25,996 - INFO - my_logger.py - info - visit JSON sample page
+2023-05-31 14:23:35,848 - INFO - my_logger.py - info - [create] 127.0.0.1: column_name: ‚ ‚ ‚ ‚ ‚ , data_length: 9, sample = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+2023-05-31 14:24:54,457 - INFO - my_logger.py - info - [create] 127.0.0.1 > column_name: ‚ ‚ ‚ ‚ ‚ , data_length: 5, sample : [1, 3, 5, 7, 9]
+2023-05-31 14:40:20,989 - ERROR - my_logger.py - error - [gen_product_and_random] 127.0.0.1 >            “ú•t ‰c‹Æ’S“–ŽÒ
+0  2025/01/01  “c’†—z‰î
+1  2025/01/01   ŽO“cŒb
+2  2025/01/01  ²“c‰ÄŽ÷
+3  2025/01/03  “c’†—z‰î
+4  2025/01/03   ŽO“cŒb
+2023-05-31 14:44:00,113 - ERROR - my_logger.py - error - [gen_product_and_random] 127.0.0.1 > JSON check does not passed. 
+2023-05-31 14:44:06,483 - INFO - my_logger.py - info - [gen_product_and_random] 127.0.0.1 > JSON check passed. 
+2023-05-31 14:44:07,382 - INFO - my_logger.py - info - [gen_product_and_random] 127.0.0.1 > generate CSV 
+            “ú•t ‰c‹Æ’S“–ŽÒ
+0  2025/01/01  “c’†—z‰î
+1  2025/01/01   ŽO“cŒb
+2  2025/01/01  ²“c‰ÄŽ÷
+3  2025/01/03  “c’†—z‰î
+4  2025/01/03   ŽO“cŒb
+2023-05-31 14:44:08,887 - INFO - my_logger.py - info - [gen_product_and_random] 127.0.0.1 > CSV is downloaded. 
+2023-05-31 15:19:08,340 - INFO - my_logger.py - info - [create] 127.0.0.1 > column_name: ‚ ‚ ‚ ‚ ‚ , data_length: 3, sample : ['aaa', 'bbb', 'ccc']
+2023-05-31 15:19:35,410 - INFO - my_logger.py - info - [create] 127.0.0.1 > column_name: ”„ã, data_length: 9, sample : [1, 2, 3, 4, 5, 6, 7, 8, 9]
+2023-05-31 15:19:43,298 - INFO - my_logger.py - info - [create] 127.0.0.1 > column_name: ”„ã, data_length: 90, sample : [1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900]
+2023-05-31 15:19:55,155 - INFO - my_logger.py - info - [gen_product_and_random] 127.0.0.1 > JSON check passed. 
+2023-05-31 15:19:56,190 - INFO - my_logger.py - info - [gen_product_and_random] 127.0.0.1 > generate CSV 
+            “ú•t ‰c‹Æ’S“–ŽÒ    ”„ã
+0  2025/01/01  “c’†—z‰î  1400
+1  2025/01/01   ŽO“cŒb  2800
+2  2025/01/01  ²“c‰ÄŽ÷  3900
+3  2025/01/03  “c’†—z‰î  9100
+4  2025/01/03   ŽO“cŒb  8700
+2023-05-31 15:19:57,726 - INFO - my_logger.py - info - [gen_product_and_random] 127.0.0.1 > CSV is downloaded. 
+2023-05-31 15:20:05,654 - INFO - my_logger.py - info - [make_trend] 127.0.0.1 > CSV check passed. 
+2023-05-31 15:20:15,700 - ERROR - my_logger.py - error - [make_trend] 127.0.0.1 > CSV‚Éu”’lv‚Æ‚¢‚¤€–Ú‚Í‚ ‚è‚Ü‚¹‚ñBŠm”F‚µ‚Ä‚­‚¾‚³‚¢B
+2023-05-31 15:20:26,639 - INFO - my_logger.py - info - [make_trend] 127.0.0.1 > base_column: “ú•t, target_column: ”„ã, slope 1, amplitude: 3, frequency: 2.5
+2023-05-31 15:20:30,873 - INFO - my_logger.py - info - [make_trend] 127.0.0.1 > CSV downloaded. 
